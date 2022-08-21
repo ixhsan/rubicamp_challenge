@@ -44,3 +44,4 @@ function pola(str) {
 
 console.log(pola("42#3 * 188 = 80#204"));// result: [8, 5]
 console.log(pola("8#61 * 895 = 78410#5"));// [7, 9]
+console.log(pola("548# * 122 = 669#14"));// [7, 4]
