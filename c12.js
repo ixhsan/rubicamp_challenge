@@ -25,9 +25,6 @@ if (userInput.length < 3) {
     console.log(appStart)
 }
 
-// console.log(index.length);
-// process.exit()
-
 console.log(`Pertanyaan: ${dataSource[questionCount].question}`)
 rl.prompt();
 if (questionCount >= dataSource.length) {
@@ -43,7 +40,8 @@ rl.on('line', (line) => {
             rl.close()
         } else if (questionCount >= dataSource.length) {
             questionCount = 0
-            console.log(`\nAnda Beruntung!\n\nPertanyaan: ${dataSource[questionCount].question}`);
+            console.log(`\nAnda Beruntung!\n\
+            nPertanyaan: ${dataSource[questionCount].question}`);
         } else {
             console.log(`\nAnda Beruntung!\n\nPertanyaan: ${dataSource[questionCount].question}`);
         }
