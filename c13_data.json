@@ -1,42 +1,16 @@
 [
-    {
-        "question": "siapa presiden indonesia?",
-        "answer": "jokowi"
-    },
-    {
-        "question": "kapan indonesia merdeka?",
-        "answer": "1945"
-    },
-    {
-        "question": "Sebutkan kota yang memiliki julukan kota intan?",
-        "answer": "garut"
-    },
-    {
-        "task": "sample",
-        "status": "not yet"
-    },
-    {
-        "task": "sample",
-        "status": "not yet"
-    },
-    {
-        "task": "sample",
-        "status": "not yet"
-    },
-    {
-        "task": "whata",
-        "status": "not yet"
-    },
-    {
-        "task": "test3",
-        "status": "not yet"
-    },
-    {
-        "task": "test3",
-        "status": "not yet"
-    },
-    {
-        "task": "test4",
-        "status": "not yet"
-    }
+  {
+    "task": "sample",
+    "status": ["X"],
+    "time": "19:17",
+    "tag": ["masak", "kukus", "minum", "mandi", "tidur"]
+  },
+  { "task": "sample", "status": ["X"], "time": "19:18", "tag": [] },
+  { "task": "sample", "status": [" "], "time": "19:20", "tag": [] },
+  { "task": "whata", "status": ["X"], "time": "19:22", "tag": [] },
+  { "task": "test3", "status": [" "], "time": "12:11", "tag": [] },
+  { "task": "test4", "status": ["X"], "time": "13:10", "tag": [] },
+  { "task": "test10", "status": ["X"], "time": "19:32", "tag": [] },
+  { "task": "test12", "status": [" "], "time": "09:22", "tag": [] },
+  { "task": "baca buku jiemi", "status": [" "], "time": "19:45", "tag": [] }
 ]
