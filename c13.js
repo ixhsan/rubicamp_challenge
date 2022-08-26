@@ -5,7 +5,7 @@ const [a, b, userInput, numInput, ...arr] = process.argv;
 const userInputNum = parseInt(numInput);
 const getTime = new Date();
 const timeFormat = `${getTime.getHours()}:${getTime.getMinutes()}`;
-const dataFormat = { task: "sample", status: [" "], time: " " };
+const dataFormat = { task: "sample", status: [" "], time: " ", tag: [] };
 let resultMessage = "no message";
 
 let dataPath = "./c13_data.json";
@@ -50,7 +50,7 @@ node todo.js filter:<tagname>\n`);
   // ADD Command
   else if (userInput === "add") {
     //Tambah tugas baru
-    dataFormat.task = arr.join(" ");
+    dataFormat.task = `${numInput} ${arr.join(" ")}`;
     dataSource.push(dataFormat);
 
     //Tambah waktu penambahan
@@ -122,12 +122,21 @@ node todo.js filter:<tagname>\n`);
     }
   }
   // FILTER Command
-  else if (userInput === "filter") {
-    console.log(`berhasil ${userInput}`);
+  else if (userInput.includes("filter:")) {
+    let findData = userInput.slice(7)
+    console.log(`Daftar Pekerjaan`);
+
+    let index = 1
+    for (let i in dataSource) {
+      if (dataSource[i].tag.includes(findData)) {
+        console.log(`${index}. [${dataSource[i].status}] ${dataSource[i].task}.`);
+        index++
+      }
+    }
   }
   // LIST OUTSTANDING Command
   else if (userInput === "list:outstanding") {
-    if (arr[0] === "asc") {
+    if (numInput === "asc") {
       // Input ASC
 
       dataSource.sort((a, z) => {
@@ -141,7 +150,7 @@ node todo.js filter:<tagname>\n`);
           index++;
         }
       }
-    } else if (arr[0] === "desc") {
+    } else if (numInput === "desc") {
       // Input DESC
 
       dataSource.sort((a, z) => {
@@ -162,7 +171,7 @@ node todo.js filter:<tagname>\n`);
   }
   // LIST COMPLETED Command
   else if (userInput === "list:completed") {
-    if (arr[0] === "asc") {
+    if (numInput === "asc") {
       // Input ASC
 
       dataSource.sort((a, z) => {
@@ -176,7 +185,7 @@ node todo.js filter:<tagname>\n`);
           index++;
         }
       }
-    } else if (arr[0] === "desc") {
+    } else if (numInput === "desc") {
       // Input DESC
 
       dataSource.sort((a, z) => {
@@ -196,6 +205,6 @@ node todo.js filter:<tagname>\n`);
     }
   }
   // TEST Command
-  else if (userInput === "test") {
+  else if (userInput.includes("testas:")) {
   }
 }
