@@ -1,5 +1,5 @@
 class CarFactory {
-constructor(tahunRakit) {
+    constructor(tahunRakit) {
         this.tahunRakit = tahunRakit
         this.cars = []
     }
@@ -9,15 +9,25 @@ constructor(tahunRakit) {
     }
 
     SimulasiGaransi(tahunCek) {
-        // return this.cars.length
-        console.log(`Daftar mobil yang kadaluarsa pada tahun ${tahunCek}`)
-        for (let i = 0; i < this.cars.length; i++) {
-            if (this.cars[i].tahunProduksi + this.cars[i].lamaGaransi > tahunCek) {
-                console.log(`${i+1}. ${this.cars[i].Brand} dengan uid ${this.cars[i].uid}`);
+        let MobilExpired = this.cars.filter((item) => {
+            if (tahunCek - item.tahunProduksi > item.lamaGaransi) {
+                return true
             } else {
-                return ` `
+                return false
+            }
+        })
+
+        // return MobilExpired.length
+        if (MobilExpired.length <= 0) {
+            return `nothing here`
+        } else {
+            console.log(`Daftar mobil yang kadaluarsa pada tahun ${tahunCek}\n`)
+            for (let i = 0; i < MobilExpired.length; i++) {
+                console.log(`${i + 1}. ${MobilExpired[i].Brand} dengan UID ${MobilExpired[i].uid} Tahun produksi ${MobilExpired[i].tahunProduksi}`);
             }
         }
+
+        return `\nAda ${MobilExpired.length} mobil yang garansinya habis di tahun ${tahunCek}`
     }
 
     GenerateCar(tahunProduksi) {
@@ -66,7 +76,7 @@ class Car {
         this.tyre = new Tyre(tyreBrand).Brand
         this.tahunProduksi = tahunProduksi
     }
-    
+
 }
 
 // merk mobil perkelas
@@ -99,6 +109,3 @@ const PabrikMobil = new CarFactory(2021)
 
 console.log(PabrikMobil.Produksi(2023))
 console.log(PabrikMobil.SimulasiGaransi(2027))
-// console.log(new CarFactory('2022', 4).Produksi('2022'));
-// console.log(CarFactory.GenerateUID(new CarFactory('Toyota', '2022', 5)));
-// console.log(CarFactory.PrintWarranty(4));
