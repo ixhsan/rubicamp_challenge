@@ -17,7 +17,6 @@ class CarFactory {
             }
         })
 
-        // return MobilExpired.length
         if (MobilExpired.length <= 0) {
             return `nothing here`
         } else {

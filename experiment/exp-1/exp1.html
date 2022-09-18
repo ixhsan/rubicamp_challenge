@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    console.log(`\nini tentang class\n`);
+
+    class Bird2 {
+        // defining private property
+        #name
+
+        // declaring constructor
+        constructor (type) {
+            this.#name = 'eagle'
+            this.type = type
+        }
+
+        // example of static method
+        static getName(p1, p2) {
+            // 
+        }
+
+        // example of methods declared within prototype object
+        getName() {
+            return 'Shape'
+        }
+
+        // example of setter method -> setting up the private property value
+        set name(name) {
+            this.#name = name
+        }
+
+        // example of getter method -> getting the private property value by showing them
+        get name() {
+            return this.#name
+        }
+    }
+
+    console.log(Bird2.getName);
+    console.log(Bird2);
+    console.log(`tipe dari Bird2 ->`, typeof Bird2);
+
+    let Bird3 = function Bird3(arr) {return arr} // Or just function Shape(){}
+    let aBird3 = new Bird3('test');
+
+    console.log(Bird3);
+    console.log(aBird3);
+
+// freecodecamp
+console.log(`\nini tutorial ttg oop dr freecodecamp\n`);
+
+// declaring supertype
+function Animal() { }
+
+Animal.prototype.eat = function() {
+  return "nom nom nom";
+};
+
+// declaring subtype
+function Bird() { }
+// re-set the subtype Bird's prototype to its Parent's prototype
+Bird.prototype = Object.create(Animal.prototype);
+// overriding inherited eat() method (polymorphism)
+Bird.prototype.eat = function() {
+    return "peck peck peck";
+};
+
+Bird.prototype.drink = function() { }
+
+function Eagle() { }
+
+let duck = new Bird()
+
+console.log(Eagle);
+console.log(Animal);
+console.log(`constructor function ->`, Bird);
+console.log(`constructor property dari Bird sekarang -> ${Bird.prototype.constructor}`);
+console.log(`ini duck ->`,duck);
+// re-set inherited constructor property to the correct supertype constructor
+Bird.prototype.constructor = Bird
+console.log(`constructor function ->`, Bird);
+console.log(`constructor property dari Bird sekarang -> ${Bird.prototype.constructor}`);
+
+console.log(`\nini tentang object literal\n`);
+
+const a = {}
+console.log(a);
+a.foo = 'bar'
+console.log(a);
+</script>
+</html>

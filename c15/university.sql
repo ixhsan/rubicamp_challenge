@@ -33,8 +33,8 @@ values
     ('B01', 'manajemen', '4'),
     ('B02', 'PAB', '2'),
     ('C01', 'olahraga', '1');
-s
-dfcdsrfddsfsdeate table jurusan(
+
+create table jurusan(
     idjurusan varchar(50) primary key not null,
     nama_jurusan varchar(50) not null
 );

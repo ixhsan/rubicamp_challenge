@@ -1,0 +1,27 @@
+[
+  {
+    "task": "sample",
+    "status": ["X"],
+    "time": "19:17",
+    "tag": ["masak", "kukus", "minum", "mandi", "tidur"]
+  },
+  {
+    "task": "sample",
+    "status": ["X"],
+    "time": "19:18",
+    "tag": ["test", "test", "test"]
+  },
+  { "task": "sample", "status": ["X"], "time": "19:20", "tag": [] },
+  { "task": "whata", "status": ["X"], "time": "19:22", "tag": [] },
+  { "task": "test3", "status": ["X"], "time": "12:11", "tag": [] },
+  { "task": "test10", "status": ["X"], "time": "19:32", "tag": [] },
+  {
+    "task": "test12",
+    "status": [" "],
+    "time": "09:22",
+    "tag": ["working", "important", "urgent"]
+  },
+  { "task": "baca buku jiemi", "status": ["X"], "time": "19:45", "tag": [] },
+  { "task": "challenge javascript", "status": [" "], "time": "13:51", "tag": []},
+  { "task": "kerjain challenge javascript", "status": [" "], "time": "13:53", "tag": [] }
+]

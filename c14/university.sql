@@ -32,8 +32,8 @@ values
     ('B01', 'manajemen', '4'),
     ('B02', 'PAB', '2'),
     ('C01', 'olahraga', '1');
-
-create table jurusan(
+s
+dfcdsrfddsfsdeate table jurusan(
     idjurusan varchar(50) primary key not null,
     nama_jurusan varchar(50) not null
 );
@@ -59,4 +59,4 @@ values
     ('A006', 'hadi', 'digital'),
     ('A007', 'afaf', 'manajemen'),
     ('A008', 'aldi', 'olahraga'),
-    ('A009', 'lia', 'pengelolaan alat dan bahan');
+ 
