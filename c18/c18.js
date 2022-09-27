@@ -282,10 +282,10 @@ class Controller {
             this._pageInput = [page1Input, page2Input]
             if (Number(this._pageInput[1]) === 5) {
                 this.pageMainMenu(/*null*/)
-            } else if (Number(this._pageInput[1]) === 1 || Number(this._pageInput[1]) > 5) {
-                this.executeNow('operation')
-            } else {
+            } else if (Number(this._pageInput[1]) >= 1 && Number(this._pageInput[1]) <= 4) {
                 this.generateQuestion(this.executeNow('table'))
+            } else {
+                this.executeNow('operation')
             }
         })
     }

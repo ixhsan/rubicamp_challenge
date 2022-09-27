@@ -1,3 +1,5 @@
+/*USED TO UPDATE DB FROM C14*/
+
 UPDATE kontrak set mahasiswa = 'fikry' WHERE mahasiswa = '001';
 UPDATE kontrak set mahasiswa = 'eko' WHERE mahasiswa = '002';
 UPDATE kontrak set mahasiswa = 'yoga' WHERE mahasiswa = '003';
