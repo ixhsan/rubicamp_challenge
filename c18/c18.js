@@ -1,52 +1,29 @@
-import sqlite from "sqlite3"
 import Table from "cli-table3"
-// import Table from "cli-table"
-import readline from "node:readline"
 import color from "@colors/colors"
+import sqlite from "sqlite3"
+import readline from "node:readline"
 sqlite.verbose()
 
 class Model {
-    #userName
-    #passWord
 
     constructor() {
-        // Test access prototype
-        this.test = `Successfully accessed Model Class!`
-
-        // Set the login information
-        this.#userName = 'admin'
-        this.#passWord = '1'
-
-        // Make connection to the database
-        this.dataPath = "./university.db"
-        this.db = new sqlite.Database(
-            this.dataPath, sqlite.OPEN_READWRITE, (err) => {
-                if (err) throw err
-            })
-
-        // Syntax for Database Query
-        this.query = ''
-        this.parameter = ''
+        this._query = ''
         this.queryList = {
             mahasiswa: [
                 `SELECT * FROM mahasiswa`,
                 `SELECT * FROM mahasiswa WHERE nim=?`,
                 `INSERT INTO mahasiswa(nim, nama, alamat, jurusan, DoB) VALUES(?,?,?,?,?)`,
                 `DELETE FROM mahasiswa WHERE nim=?`,
-                `masukkan NIM: `,
                 `mahasiswa dengan NIM: ? tidak terdaftar!`,
-                `masukkan NIM mahasiswa yang akan dihapus: `,
                 `mahasiswa dengan NIM: ? telah dihapus!`,
-                ['NIM', 'Nama', 'Alamat', 'Jurusan', 'DoB']
+                [color.red('NIM'), color.red('Nama'), color.red('Alamat'), color.red('Jurusan'), color.red('DoB')]
             ],
             jurusan: [
                 `SELECT * FROM jurusan`,
                 `SELECT * FROM jurusan WHERE idjurusan=?`,
                 `INSERT INTO jurusan(idjurusan,nama_jurusan) VALUES(?,?)`,
                 `DELETE FROM jurusan WHERE idjurusan=?`,
-                `masukkan id jurusan: `,
                 `jurusan dengan id: ? tidak terdaftar!`,
-                `masukkan id jurusan yang akan dihapus:`,
                 `jurusan dengan id: ? telah dihapus!`,
                 ['ID jurusan', 'Jurusan']
             ],
@@ -55,9 +32,7 @@ class Model {
                 `SELECT * FROM dosen WHERE nip=?`,
                 `INSERT INTO dosen(nip, nama, matakuliah) VALUES(?,?,?)`,
                 `DELETE FROM dosen WHERE nip=?`,
-                `masukkan nip: `,
-                `dosen dengan nip: ? tidak terdaftar!`,
-                `masukkan nip dosen yang akan dihapus:`,
+                `dosen dengan NIP: ? tidak terdaftar!`,
                 `dosen dengan nip: ? telah dihapus!`,
                 ['NIP', 'Nama Dosen', 'Mata Kuliah']
             ],
@@ -66,9 +41,7 @@ class Model {
                 `SELECT * FROM jurusan WHERE idjurusan=?`,
                 `INSERT INTO matakuliah(kodematkul, nama, sks) VALUES(?,?,?)`,
                 `DELETE FROM matakuliah WHERE kodematkul=?`,
-                `masukkan kode matakuliah: `,
                 `matakuliah dengan kode: ? tidak terdaftar!`,
-                `masukkan kode matakuliah yang akan dihapus: `,
                 `matakuliah dengan kode: ? telah dihapus!`,
                 ['Kode', 'Nama Matakuliah', 'Jumlah SKS']
             ],
@@ -77,301 +50,346 @@ class Model {
                 `SELECT * FROM kontrak WHERE idkontrak=?`,
                 `INSERT INTO kontrak(id,mahasiswa,dosen,matakuliah,nilai) VALUES(?,?,?,?,?)`,
                 `DELETE FROM kontrak WHERE id=?`,
-                `masukkan id: `,
                 `kontrak dengan id: ? tidak terdaftar!`,
-                `masukkan id kontrak yang akan dihapus:`,
                 `kontrak dengan id: ? telah dihapus!`,
                 ['ID', 'Mahasiswa', 'Dosen', 'Matakuliah', 'Nilai']
             ]
         }
-        // this.mahasiswaQuery = [
-        //     `SELECT * FROM mahasiswa`,
-        //     `SELECT * FROM mahasiswa WHERE nim=?`,
-        //     `INSERT INTO mahasiswa(nim, nama, alamat, jurusan, DoB) VALUES(?,?,?,?,?)`,
-        //     `DELETE FROM mahasiswa WHERE nim=?`,
-        //     `masukkan NIM: `,
-        //     `mahasiswa dengan NIM: ? tidak terdaftar!`,
-        //     `masukkan NIM mahasiswa yang akan dihapus: `,
-        //     `mahasiswa dengan NIM: ? telah dihapus!`
-        // ]
-        // this.jurusanQuery = [
-        //     `SELECT * FROM jurusan`,
-        //     `SELECT * FROM jurusan WHERE idjurusan=?`,
-        //     `INSERT INTO jurusan(idjurusan,nama_jurusan) VALUES(?,?)`,
-        //     `DELETE FROM jurusan WHERE idjurusan=?`,
-        //     `masukkan id jurusan: `,
-        //     `jurusan dengan id: ? tidak terdaftar!`,
-        //     `masukkan id jurusan yang akan dihapus:`,
-        //     `jurusan dengan id: ? telah dihapus!`
-        // ]
-        // this.dosenQuery = [
-        //     `SELECT * FROM dosen`,
-        //     `SELECT * FROM dosen WHERE nip=?`,
-        //     `INSERT INTO dosen(nip, nama, matakuliah) VALUES(?,?,?)`,
-        //     `DELETE FROM dosen WHERE nip=?`,
-        //     `masukkan nip: `,
-        //     `dosen dengan nip: ? tidak terdaftar!`,
-        //     `masukkan nip dosen yang akan dihapus:`,
-        //     `dosen dengan nip: ? telah dihapus!`
-        // ]
-        // this.matakuliahQuery = [
-        //     `SELECT * FROM matakuliah`,
-        //     `SELECT * FROM jurusan WHERE idjurusan=?`,
-        //     `INSERT INTO matakuliah(kodematkul, nama, sks) VALUES(?,?,?)`,
-        //     `DELETE FROM matakuliah WHERE kodematkul=?`,
-        //     `masukkan kode matakuliah: `,
-        //     `matakuliah dengan kode: ? tidak terdaftar!`,
-        //     `masukkan kode matakuliah yang akan dihapus: `,
-        //     `matakuliah dengan kode: ? telah dihapus!`
-        // ]
-        // this.kontrakQuery = [
-        //     `SELECT * FROM kontrak`,
-        //     `SELECT * FROM kontrak WHERE idkontrak=?`,
-        //     `INSERT INTO kontrak(id,mahasiswa,dosen,matakuliah,nilai) VALUES(?,?,?,?,?)`,
-        //     `DELETE FROM kontrak WHERE id=?`,
-        //     `masukkan id: `,
-        //     `kontrak dengan id: ? tidak terdaftar!`,
-        //     `masukkan id kontrak yang akan dihapus:`,
-        //     `kontrak dengan id: ? telah dihapus!`
-        // ]
-    }
+        this._parameter = []
+        this.parameterList = [
+            null,
+            ["NIM", "Nama", "Alamat", "Jurusan", "DoB"],
+            ["ID", "Nama Jurusan"],
+            ["NIP", "Nama Dosen", "Matakuliah"],
+            ["Kode", "Nama Matakuliah", "Jumlah SKS"],
+            ["ID", "Nama Mahasiswa", "Alamat", "Jurusan", "DoB"]
+        ]
 
-    get loginData() {
-        let LoginArr = [this.#userName, this.#passWord]
-        return LoginArr
+        // Make connection to the database
+        this._dataPath = "./university.db"
+        this._db = new sqlite.Database(
+            this._dataPath, sqlite.OPEN_READWRITE, (err) => {
+                if (err) throw err
+            })
     }
 
     // Display all the record in a table
-    Display(mode) {
-
-        if (mode === 1) {
-            return new Promise((resolve, reject) => {
-                this.db.all(this.query[0], (err, row) => {
-                    if (err) {
-                        let responseObj = {
-                            'error': err
-                        }
-                        reject(responseObj);
-                    } else {
-                        resolve(row);
+    Display() {
+        return new Promise((resolve, reject) => {
+            this._db.all(this._query[0], (err, row) => {
+                if (err) {
+                    let responseObj = {
+                        'error': err
                     }
-                })
+                    reject(responseObj);
+                } else {
+                    resolve(row);
+                }
             })
-        } else {
-            this.db.all(this.query[0], (err, row) => {
-                if (err) throw err
-                console.log(row);
-            })
-        }
+        })
     }
 
     // Find a record in a table
     Find() {
-        this.db.get(this.query[1], this.parameter, (err, row) => {
-            if (row) {
-                console.log(row);
-            } else {
-                console.log(this.query[5].replace('?', this.parameter))
-            }
+        return new Promise((resolve, reject) => {
+            this._db.get(this._query[1], this._parameter, (err, row) => {
+                if (row) {
+                    resolve([row])
+                } else if (err) {
+                    let errObj = {
+                        'error': err
+                    }
+                    reject(errObj);
+                } else {
+                    reject(this._query[4].replace('?', this._parameter))
+                }
+            })
         })
+
     }
 
     // Adding a new record in a table
     Add() {
-        this.db.run(this.query[2], this.parameter, function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            model.Display()
-        });
+        return new Promise((resolve, reject) => {
+            this._db.run(this._query[2], this._parameter, (err) => {
+                if (err) {
+                    let errObj = {
+                        'error': err
+                    }
+                    reject(errObj);
+                } else {
+                    resolve(this.Display())
+                }
+            });
+        })
     }
 
     // Deleting a record in a table
     Delete() {
-        this.db.run(this.query[3], this.parameter, function (err) {
-            if (err) {
-                return console.error(err.message);
-            } else {
-                console.log(model.query[7].replace('?', model.parameter));
-            }
-        });
+        return new Promise((resolve, reject) => {
+            let successMessage = this._query[5].replace('?', this._parameter)
+            let errorMessage = this._query[4].replace('?', this._parameter)
+            this._db.run(this._query[3], this._parameter, function(err) {
+                if (err) {
+                    let errObj = {
+                        'error': err
+                    }
+                    reject(errObj['error']);
+                } else if (this.changes) {
+                    resolve(successMessage)
+                } else {
+                    reject(errorMessage)
+                }
+            })
+        })
     }
 
-    GenerateQuery(keys) {
+    GenerateQuery(keys, mode = 'query') {
         const tableSet = ['not found', 'mahasiswa', 'jurusan', 'dosen', 'matakuliah', 'kontrak']
-        return this.query = this.queryList[tableSet[keys]]
-        // switch (table) {
-        //     case 1:
-        //         return this.Query = this.mahasiswaQuery
-        //     case 2:
-        //         return this.Query = this.jurusanQuery
-        //     case 3:
-        //         return this.Query = this.dosenQuery
-        //     case 4:
-        //         return this.Query = this.matakuliahQuery
-        //     case 5:
-        //         return this.Query = this.kontrakQuery
-        // }
+        return mode === 'query' ? this._query = this.queryList[tableSet[keys]] : tableSet[keys]
     }
 
-    // TEST EXPERIMENT
-
-    // Edit a specific record in a table
-    // testUpdate(valuesUpdated, valuesOld) {
-    //     let query = `UPDATE mahasiswa set nama = ${valuesUpdated} where nama = ${valuesOld}`
-    //     this.db.run(query, function (err) {
-    //         if (err) {
-    //             return console.error(err.message);
-    //         }
-    //         console.log(`Row(s) updated!}`);
-    //     });
-    // }
-
-    // testModel(c, d) {
-    //     let a = 4 - c
-    //     let b = 5 - d
-    //     return [a, b]
-    // }
 }
 
 class View {
-
     constructor() {
-        // Interface for result
-        this.result = new Table({
-            head: model.GenerateQuery(),
+        this.table = new Table({
+            head: ['default table']
+        })
+    }
+
+    vShowRecords(table) {
+        return new Promise((resolve, reject) => {
+            let entry = []
+            for (let i = 0; i < table.length; i++) {
+                for (let key in table[i]) {
+                    typeof table[i][key] === 'number' ? entry.push(table[i][key]) : entry.push(table[i][key][0].toUpperCase() + table[i][key].substring(1))
+                }
+                this.table.push(entry)
+                entry = []
+            }
+            let row = this.table.toString()
+            resolve(row)
+        })
+    }
+
+    vFindRecord(table) {
+        return new Promise((resolve, reject) => {
+            let result = []
+            let textMerge = ``
+            let textProcessed = ``
+            let textRaw = ``
+
+            for (let i = 0; i < table.length; i++) {
+                for (let key in table[i]) {
+                    typeof table[i][key] === 'number' ? textRaw = table[i][key] : textRaw = table[i][key][0].toUpperCase() + table[i][key].substring(1)
+                    textProcessed = textMerge.concat(`${key[0].toUpperCase() + key.substring(1)}\t: ${textRaw}\n`)
+                    result.push(textProcessed)
+                }
+            }
+
+            resolve(result.toString('').replace(/,/g, ''))
+        })
+    }
+
+    vDeleteRecord(table) {
+        return new Promise((resolve, reject) => {resolve(table)})
+    }
+
+    setTable(value) {
+        return this.table = new Table({
+            head: value,
             // colWidths: [15, 21, 10], //set the widths of each column (optional)
-        });
-        // this.border = `=============================================`
-        // this.mainMenu = `[1] Mahasiswa\n[2] Jurusan\n[3] Dosen\n[4] Matakuliah\n[5] Kontrak\n[6] Keluar`
-        // this.answerText = `masukkan salah satu no. dari opsi diatas:`
-
+        })
     }
-
-    init() {
-        this.setPrompt(`Welcome to the app!\nLogin to proceed..\n`)
-    }
-
-    // Model event handling
-
-    // Display all records in a table
-    showResult(result, mode) {
-        if (mode === 1) {
-            result.then((row) => {
-                this.result.push(row)
-                console.log(this.result.toString());
-            }).catch((err) => {
-                this.result.push(err)
-                console.log(this.result.toString());
-            })
-        }
-    }
-
-    testTable() {
-        this.result.push(['test1'], ['test2'], ['test3'], ['test4'])
-        console.log(this.result.toString());
-    }
-
-    // TEST EXPERIMENT
-    // Find a record in table
-    // Add a record in a table
-    // Delete a record in a table
-    // TESTING PROPERTY AND METHODS
-    // testReadline(value) {
-    //     let container = value
-    //     this.rl.on('line', container)
-    //     return container
-    // }
-
-    // testView() {
-    //     return this.test
-    // }
-
-
-
-    // answerPrompt() {
-    //     this.rl.setPrompt(this.answerPrompt)
-    //     this.rl.prompt()
-    // }
-
-    // respondPrompt(value) {
-    //     this.rl.setPrompt(value)
-    //     this.rl.prompt()
-    // }
-
 
 }
 
 class Controller {
     constructor(model = new Model, view = new View) {
-        // import the instance of Model and View
         this.model = model
         this.view = view
 
         // Creating the interface        
-        // this.rl = readline.createInterface({
-        //     input: process.stdin,
-        //     output: process.stdout,
-        // })
+        this.rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+        })
+        this.rlclose = this.rl.on('close', () => {
+            console.log(`Closing the app..\n`)
+            process.exit(0)
+        })
 
-        // // Handling Event rl.close()
-        // this.rlclose = this.rl.on('close', () => {
-        //     console.log(`Closing the app..\n`);
-        //     process.exit(0);
-        // });
+        /* application state */
+        this._pageInput = []
+        this._lineBreak = `======================================================`;
+        this._table = ''
+        this._mode = ''
     }
 
-    init(value) {
-        console.log(`selamat datang\n`)
-        this.displayTheResult(value)
-        // this.rl.on('line', (answer) => {
-        //     if (answer === 1) {
-        //         this.displayTheResult()
-        //     }
-        // }))
-
-        // TEST LOGIN 
-        // this.view.testReadline((answer) => {
-        //     if (answer === model.loginData[0]) {
-        //         console.log(`selamat anda masuk\n`);
-        //         this.run()
-        //     } else {
-        //         console.log(`gagal\n`);
-        //         this.init()
-        //     }
-        // })
+    /* Main page : LOGIN */
+    init(/*mode = 1 */) {
+        // const clearLine = mode ?? process.stdout.write('\u001B[2J\u001B[0;0f')
+        console.log(`${this._lineBreak}\nWelcome to Universitas Pendidikan Indonesia\nJl Setiabudhi No. 255\n${this._lineBreak}`)
+        this.rl.question("Username: ", (answer1) => {
+            console.log(this._lineBreak);
+            this.rl.question("Password: ", (answer2) => {
+                console.log(this._lineBreak);
+                if (answer1 == "admin" && answer2 == "1") {
+                    console.log(`Welcome, ${answer1}. Your access level is: ADMIN `);
+                    this.pageMainMenu();
+                } else if (answer1 === '.quit') {
+                    this.rl.close()
+                } else {
+                    // process.stdout.write('\u001B[2J\u001B[0;0f')
+                    console.log("username atau password anda salah, silakan coba lagi.");
+                    this.init();
+                }
+            });
+        });
     }
 
-    // Bridge the model and view
-    displayTheResult = (result) => {
-        this.view.showResult(result)
+    pageMainMenu(/*mode = 1*/) {
+        // const clearLine = mode ?? process.stdout.write('\u001B[2J\u001B[0;0f')
+        console.log(`${this._lineBreak}\nsilahkan pilih opsi di bawah ini\n[1] Mahasiswa\n[2] Jurusan\n[3] Dosen\n[4] Matakuliah\n[5] Kontrak\n[6] Keluar\n${this._lineBreak}`)
+        this.rl.question(`Masukkan salah satu no. dari opsi diatas: `, (answer) => {
+            // console.log(this.lineBreak);
+            if (Number(answer) > 0 && Number(answer) < 6) {
+                this.pageOperation(answer, 'no')
+            } else if (Number(answer) === 6) {
+                this.init(/*null*/)
+            } else {
+                console.log(`Silahkan pilih menu antara 1-6`);
+                this.pageMainMenu(/*null*/)
+            }
+        })
     }
 
+    pageOperation(page1Input, anyOutput = 'no', output) {
+        /* Set table and operation */
+        this._mode = this.model.GenerateQuery(page1Input)
+        this._table = this.model.GenerateQuery(page1Input, 'teks')
+        let view = this.view.setTable(this._mode[6])
+        let isOutput = anyOutput
+        // process.stdout.write('\u001B[2J\u001B[0;0f')
+        if (isOutput === 'yes') {
+            console.log(`${this._lineBreak}`)
+            console.log(output);
+        }
+        console.log(`${this._lineBreak}\nsilahkan pilih opsi di bawah ini\n[1] daftar ${this._table}\n[2] cari ${this._table}\n[3] tambah ${this._table}\n[4] hapus ${this._table}\n[5] kembali\n${this._lineBreak}`)
+        this.rl.question(`masukkan salah satu no. dari opsi diatas: `, (page2Input) => {
+            // process.stdout.write('\u001B[2J\u001B[0;0f')
+            this._pageInput = [page1Input, page2Input]
+            if (Number(this._pageInput[1]) === 5) {
+                this.pageMainMenu(/*null*/)
+            } else if (Number(this._pageInput[1]) === 1 || Number(this._pageInput[1]) > 5) {
+                this.executeNow('operation')
+            } else {
+                this.generateQuestion(this.executeNow('table'))
+            }
+        })
+    }
 
-    // Handle quit app
     quit() {
         this.rl.close()
     }
 
-    // // User processing code
-    // setPrompt(value) {
-    //     this.rl.setPrompt(value)
-    //     this.rl.prompt()
-    // }
+    /* Bridging Function */
+    // 1. Question Generator
+    generateQuestion = (userInput) => {
+        let parameter = []
+        let ask = ``
+        console.log(`userInput: ${userInput.length}`);
+        Number(this._pageInput[1]) === 2 || Number(this._pageInput[1]) === 4 ? parameter = [userInput.slice(0,1)] : parameter = userInput.slice(0,)
+        Number(this._pageInput[1]) === 2 || Number(this._pageInput[1]) === 4 ? ask = `Masukkan ` : ask = ``
+        // console.log(`${this._lineBreak}`)
+        this.rl.question(`${ask}${parameter[0]}\t: `, (answer) => {
+            this.model._parameter.push(answer)
+            if (parameter.length > 1) {
+                parameter.splice(0, 1)
+                this.generateQuestion(parameter)
+            } else {
+                return this.executeNow('operation')
+            }
+        })
+    }
+
+    // 2. Operand functions
+    executeNow = (mode = 'operation') => {
+        /* Select Table */
+        const queryExec = this.model.parameterList[this._pageInput[0]]
+        /* Select Operation */
+        const operateSelect = [
+            null,
+            this.showRecords,
+            this.findRecord,
+            this.addRecord,
+            this.deleteRecord
+        ]
+
+        const operate = operateSelect[Number(this._pageInput[1])] ?? this.noOption
+        return mode === 'operation' ? operate() : queryExec
+    }
+
+    /* View-Model Interfacing */
+    showRecords = async () => {
+        try {
+            const result = await this.model.Display()
+            const result2 = await this.view.vShowRecords(result)
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', result2);
+        } catch (err) {
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', err);
+        }
+    }
+
+    findRecord = async () => {
+        try {
+            let result = await this.model.Find()
+            let result2 = await this.view.vFindRecord(result)
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', result2);
+        } catch (err) {
+            this.model._parameter = []
+            console.log(`${this._lineBreak}`)
+            console.log(err);
+            this.generateQuestion(this.executeNow('table'))
+        }
+    }
+
+    addRecord = async () => {
+        try {
+            const result = await this.model.Add()
+            const result2 = await this.view.vShowRecords(result)
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', result2);
+        } catch (err) {
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', err);
+        }
+    }
+
+    deleteRecord = async () => {
+        try {
+            let result = await this.model.Delete()
+            let result2 = await this.view.vDeleteRecord(result)
+            this.model._parameter = []
+            this.pageOperation(this._pageInput[0], 'yes', result2);
+        } catch (err) {
+            this.model._parameter = []
+            console.log(`${this._lineBreak}`)
+            console.log(err);
+            this.generateQuestion(this.executeNow('table'))
+        }
+    }
+
+    noOption = () => {
+        let result = `Silahkan pilih antara opsi 1-5.`;
+        this.pageOperation(this._pageInput[0], 'yes', result);
+    }
 
 }
 
-// const appView = new View()
-// // appView.testTable()
-// const appModel = new Model()
-// appModel.GenerateQuery(5)
-// appModel.Display(2)
-// const app = new Controller(appModel, appView)
-
-const AppModel = new Model()
-const AppView = new View()
-
-let x = AppModel.GenerateQuery(1)[8]
-let y = AppView.result.length
-console.log(x);
-console.log(y);
+const app = new Controller(new Model, new View)
+app.init()
