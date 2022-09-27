@@ -86,7 +86,52 @@ class View {
     }
 
     displayTodos(todos) {
-        
+        // Delete all nodes
+        while (this.todoList.firstChild) {
+            this.todoList.removeChild(this.todoList.firstChild)
+        }
+
+        // Show default message
+        if (todos.length === 0) {
+            const p = this.createElement('p')
+            p.textContent = 'Nothing to do! Add a task?'
+            this.todoList.append(p)
+        } else {
+            // Create todo item nodes for each 
+            todos.forEach(todo => {
+                const li = this.createElement('li')
+                li.id = todo.id
+            
+            // Each todo item will have a checkbox you can toggle
+                const checkbox = this.createElement('input')
+                checkbox.type = 'checkbox'
+                checkbox.checked = todo.complete
+
+            // The todo item text will be in a contenteditable span
+            const span = this.createElement('span')
+            span.contentEditable = true
+            span.classList.add('editable')
+
+            // If the todo is complete, it will have a strikethrough
+            if (todo.complete) {
+                const strike = this.createElement('s')
+                strike.textContent = todo.text
+                span.append(strike)
+            } else {
+                // Otherwise just display the text
+                span.textContent = todo.text
+            }
+
+            // The todos will also have a delete button
+            const deleteButton = this.createElement('button', 'delete')
+            deleteButton.textContent = 'Delete'
+            li.append(checkbox, span, deleteButton)
+
+            // Append nodes to the todo list
+            this.todoList.append(li)
+            })
+        }
+
     }
 }
 
@@ -94,6 +139,13 @@ class Controller {
     constructor(model, view) {
         this.model = model
         this.view = view
+
+        // Display initial todos
+        this.onTodoListChanged(this.model.todos)
+    }
+
+    onTodoListChanged = (todos) => {
+        this.view.displayTodos(todos)
     }
 }
 
@@ -102,5 +154,3 @@ const app = new Controller(new Model(), new View())
 // TEST Model instance phase 1
 // app.model.addTodo('Makan')
 // console.log(app.model);
-
-console.log(document.body);

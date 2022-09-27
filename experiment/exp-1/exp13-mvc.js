@@ -1,8 +1,12 @@
 import Table from "cli-table3"
 import color from "@colors/colors"
+import sqlite from "sqlite3"
+import readline from "node:readline"
+sqlite.verbose()
 
 class Model {
     constructor() {
+        this.query = ''
         this.queryList = {
             mahasiswa: [
                 `SELECT * FROM mahasiswa`,
@@ -66,6 +70,13 @@ class Model {
             alamat: 'cianjur',
             jurusan: 'teknik mesin',
             DoB: '2003-02-01'
+        },
+        {
+            nim: '004',
+            nama: 'dani',
+            alamat: 'surabaya',
+            jurusan: 'teknik pangan',
+            DoB: '1999-12-29'
         }]
     }
 
@@ -157,15 +168,17 @@ class View {
         })
     }
 
-    Display(table) {
+    vShowRecords(table) {
         table.then((message) => {
             let entry = []
+            // console.log(message.length);
             for (let i = 0; i < message.length; i++) {
                 for (let key in message[i]) {
                     entry.push(message[i][key][0].toUpperCase() + message[i][key].substring(1))
                 }
+                this.table.push(entry)
+                entry = []
             }
-            this.table.push(entry)
             let row = this.table.toString()
             console.log(row)
         }).catch((err) => {
@@ -173,16 +186,16 @@ class View {
         })
     }
 
-    testTable() {
-        this.table.push(['hahahahahahahahahaha', 'test', 'test'])
-        console.log(this.table.toString());
-    }
-
     setTable(value) {
         return this.table = new Table({
             head: value,
             // colWidths: [15, 21, 10], //set the widths of each column (optional)
         })
+    }
+
+    testTable() {
+        this.table.push(['hahahahahahahahahaha', 'test', 'test'])
+        console.log(this.table.toString());
     }
 }
 
@@ -192,9 +205,9 @@ class Controller {
         this.view = view
     }
 
-    Display(table) {
-        this.view.Display(table)
-        // this.view.testTable()
+
+    showRecords(table) {
+        this.view.vShowRecords(table)
     }
 }
 
@@ -204,4 +217,4 @@ const app = new Controller(appModel, appView)
 const a = app.model.GenerateQuery(1)
 app.view.setTable(a[8])
 const b = appModel.Display('satu', 1)
-app.Display(b)
+app.showRecords(b)
