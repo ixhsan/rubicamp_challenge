@@ -67,7 +67,15 @@ class Model {
                 ['ID', 'Mahasiswa', 'Dosen', 'Matakuliah', 'Nilai']
             ]
         }
-        this.parameter = ''
+        this.parameter = []
+        this.parameterSelect = [
+            null,
+            ["NIM", "Nama", "Alamat", "Jurusan", "DoB"],
+            ["ID", "Nama Jurusan"],
+            ["NIP", "Nama Dosen", "Matakuliah"],
+            ["Kode", "Nama Matakuliah", "Jumlah SKS"],
+            ["ID", "Nama Mahasiswa", "Alamat", "Jurusan", "DoB"]
+        ]
         this.mahasiswa = [{
             nim: '005',
             nama: 'deri',
@@ -138,12 +146,14 @@ class Model {
 
     // Adding a new record in a table
     Add() {
-        this.db.run(this.query[2], this.parameter, function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            model.Display()
-        });
+        return new Promise((resolve, reject) => {
+            this.db.run(this.query[2], this.parameter, function (err) {
+                if (err) {
+                    return console.error(err.message);
+                }
+                model.Display()
+            });
+        })
     }
 
     // Deleting a record in a table
@@ -157,9 +167,9 @@ class Model {
         });
     }
 
-    GenerateQuery(keys) {
+    GenerateQuery(keys, mode = 'query') {
         const tableSet = ['not found', 'mahasiswa', 'jurusan', 'dosen', 'matakuliah', 'kontrak']
-        return this.query = this.queryList[tableSet[keys]]
+        return mode === 'query' ? this.query = this.queryList[tableSet[keys]] : tableSet[keys]
     }
 
 }
@@ -169,6 +179,7 @@ class View {
         this.table = new Table({
             head: ['default table']
         })
+        this.lineBreak = `======================================================`;
     }
 
     vShowRecords = (table) => {
@@ -202,6 +213,14 @@ class View {
         })
     }
 
+    vAddRecord = (table) => {
+        
+    }
+
+    vDeleteRecord = (table) => {
+
+    }
+
     setTable(value) {
         return this.table = new Table({
             head: value,
@@ -227,55 +246,165 @@ class Controller {
         })
     }
 
-    mainmenu() {
-        console.log(`[1] Mahasiswa\n[2] Jurusan\n[3] Dosen\n[4] Matakuliah\n[5] Kontrak\n[6] Keluar\n=============================================`);
-        this.rl.setPrompt(`masukan salah satu no. dari opsi diatas: `)
-        this.rl.prompt()
-        this.rl.on('line', (answer) => {
-            if (answer.toLowerCase() == 1) {
-                console.log('test');
-            } else if (answer.toLowerCase() == 2) {
-                console.log('what');
+    /* Main page */
+    /* Login Page */
+    init(/*mode = 1 */) {
+        // const clearLine = mode ?? process.stdout.write('\u001B[2J\u001B[0;0f')
+        console.log(`${this.view.lineBreak}\nWelcome to Universitas Pendidikan Indonesia\nJl Setiabudhi No. 255\n${this.view.lineBreak}`)
+        this.rl.question("Username: ", (answer1) => {
+            console.log(this.view.lineBreak);
+            this.rl.question("Password: ", (answer2) => {
+                console.log(this.view.lineBreak);
+                if (answer1 == "admin" && answer2 == "1") {
+                    console.log(`Welcome, ${answer1}. Your access level is: ADMIN `);
+                    // Menu utama
+                    this.pageMainMenu();
+                } else if (answer1 === '.quit') {
+                    this.rl.close()
+                } else {
+                    // process.stdout.write('\u001B[2J\u001B[0;0f')
+                    console.log("username atau password anda salah, silakan coba lagi.");
+                    // Kembali looping ke login
+                    this.init();
+                }
+            });
+        });
+    }
+
+    pageMainMenu(/*mode = 1*/) {
+        // const clearLine = mode ?? process.stdout.write('\u001B[2J\u001B[0;0f')
+        console.log(this.view.lineBreak);
+        console.log(`Menu Utama`)
+        console.log(this.view.lineBreak);
+        console.log(`[1] Mahasiswa\n[2] Jurusan\n[3] Dosen\n[4] Matakuliah\n[5] Kontrak\n[6] Keluar`)
+        console.log(this.view.lineBreak);
+        this.rl.question(`Masukkan salah satu no. dari opsi diatas: `, (answer) => {
+            console.log(this.view.lineBreak);
+            if (Number(answer) > 0 && Number(answer) < 6) {
+                this.pageOperation(answer, 'no')
+            } else if (Number(answer) === 6) {
+                this.init(/*null*/)
             } else {
-                this.quit()
+                console.log(`Silahkan pilih menu antara 1-6`);
+                this.pageMainMenu(/*null*/)
             }
         })
     }
 
-    init() {
-        this.rl.setPrompt(`=============================================\nUsername: `)
-        console.log(`=============================================\nWelcome to Universitas Pendidikan Indonesia\nJl Setiabudhi No. 255\n=============================================`);
-        this.rl.question(`Username: `, (answer) => {
-            if (answer == 'admin') {
-                console.log(`berhasil masuk`);
-                this.mainmenu()
+    pageOperation(page1Input, checkOutput = 'no', output) {
+        /* Set table and operation */
+        let mode = this.model.GenerateQuery(page1Input)
+        let table = this.model.GenerateQuery(page1Input, 'teks')
+        let view = this.view.setTable(table[8])
+        let isOutput = checkOutput
+
+        // process.stdout.write('\u001B[2J\u001B[0;0f')
+        if (isOutput === 'yes') {
+            console.log(output);
+        }
+        console.log(/*${this.view.lineBreak}\n*/`${table}\n${this.view.lineBreak}\n[1] daftar ${table}\n[2] cari ${table}\n[3] tambah ${table}\n[4] hapus ${table}\n[5] kembali\n${this.view.lineBreak}`)
+        this.rl.question(`masukkan salah satu no. dari opsi diatas: `, (page2Input) => {
+            // process.stdout.write('\u001B[2J\u001B[0;0f')
+            let pageInput = [page1Input, page2Input]
+            if (Number(pageInput[1]) === 5) {
+                this.pageMainMenu(/*null*/)
+            } else if (Number(pageInput[1]) === 1) {
+                this.executeNow('operation', pageInput)
             } else {
-                console.log(`ulangi`);
-                this.rl.prompt()
+                this.generateQuestion(executeNow('table', pageInput), pageInput)
             }
         })
     }
+
     quit() {
-        this.rl.close()
+        this.this.rl.close()
     }
 
-    showRecords = () => {
+    /* Bridging Function */
+    // 1. Question Generator
+    generateQuestion = (value, pageInput) => {
+        if (Number(pageInput[1]) === 2 || Number(pageInput[1]) === 4) {
+            let singleValue = [value[0]]
+            this.rl.question(`${singleValue[0]}: `, (answer) => {
+                this.model.parameter.push(answer)
+                if (singleValue.length > 1) {
+                    singleValue.splice(0, 1)
+                    this.generateQuestion(singleValue, pageInput)
+                } else {
+                    return this.executeNow('operation', pageInput)
+                }
+            })
+        } else {
+            this.rl.question(`${value[0]}: `, (answer) => {
+                this.model.parameter.push(answer)
+                if (value.length > 1) {
+                    value.splice(0, 1)
+                    this.generateQuestion(value, pageInput)
+                } else {
+                    return this.executeNow('operation', pageInput)
+                }
+            })
+        }
+    }
+
+    // 2. Operand functions
+    executeNow(mode = 'operation', pageInput) {
+        /* Select Table */
+        const queryExec = this.model.parameterSelect[pageInput[0]]
+
+        /* Select Operation */
+        const operateSelect = [
+            null,
+            this.showRecords,
+            this.findRecord,
+            this.addRecord,
+            this.deleteRecord
+        ]
+
+        const operate = operateSelect[pageInput[1]] ?? this.noOption
+        return mode === 'operation' ? operate(pageInput[0]) : queryExec
+    }
+
+    /* View-Model Interfacing */
+    showRecords = (page1Input) => {
         this.view.vShowRecords(this.model.Display())
+        this.model.parameter = []
+        return pageOperation(page1Input, 'yes', result);
     }
 
-    findRecord = () => {
-        this.view.vFindRecord(this.model.Find())
+    findRecord = (page1Input) => {
+        let result = this.view.vFindRecord(this.model.Find())
+        this.model.parameter = []
+        return pageOperation(page1Input, 'yes', result);
+    }
+
+    addRecord = (page1Input) => {
+        let result = this.view.vAddRecord(this.model.Add())
+        this.model.parameter = []
+        return pageOperation(page1Input, 'yes', result);
+    }
+
+    deleteRecord = (page1Input) => {
+        let result = this.view.vDeleteRecord(this.model.Delete())
+        this.model.parameter = []
+        return pageOperation(page1Input, 'yes', result);
+    }
+
+    noOption(page1Input) {
+        let result = `Silahkan pilih antara opsi 1-5.\n${page1Input}`;
+        this.model.parameter = []
+        return this.pageOperation(page1Input, 'yes', result);
     }
 }
 
-const appModel = new Model()
-const appView = new View()
+// const appModel = new Model()
+// const appView = new View()
 
-const userInput = appModel.parameter = '001'
+// const userInput = appModel.parameter = '001'
 
-const app = new Controller(appModel, appView)
-const setQuery = app.model.GenerateQuery(1)
+const app = new Controller(new Model,new View)
 app.init()
+// const setQuery = app.model.GenerateQuery(1)
 /* TEST SHOW RECORD */
 // app.view.setTable(setQuery[8])
 // app.findRecord()
