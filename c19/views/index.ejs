@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 19 - BREAD Express</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="header-title">
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+    <main>
+      <section id="filter-form" class="first-section">
+        <h2>Filter</h2>
+        <form action="">
+          <fieldset>
+            <p>
+              <input
+                onclick="trackStatus('enable-id','label-id', 'input-id')"
+                type="checkbox"
+                name="id"
+                id="enable-id"
+              />
+              <label for="enable-id" id="label-id" class="first-section-label">
+                ID</label
+              >
+              <input
+                type="text"
+                name="id"
+                id="input-id"
+                placeholder="ID"
+                disabled
+              />
+            </p>
+            <p>
+              <input
+                onclick="trackStatus('enable-string', 'label-string', 'input-string')"
+                type="checkbox"
+                name="string"
+                id="enable-string"
+              />
+              <label
+                for="enable-string"
+                id="label-string"
+                class="first-section-label"
+              >
+                String</label
+              >
+              <input
+                type="text"
+                name="string"
+                id="input-string"
+                placeholder="String"
+                disabled
+              />
+            </p>
+            <p>
+              <input
+                onclick="trackStatus('enable-integer','label-integer', 'input-integer')"
+                type="checkbox"
+                name="integer"
+                id="enable-integer"
+              />
+              <label
+                for="enable-integer"
+                id="label-integer"
+                class="first-section-label"
+              >
+                Integer</label
+              >
+              <input
+                type="text"
+                name="integer"
+                id="input-integer"
+                placeholder="Integer"
+                disabled
+              />
+            </p>
+            <p>
+              <input
+                onclick="trackStatus('enable-float','label-float', 'input-float')"
+                type="checkbox"
+                name="float"
+                id="enable-float"
+              />
+              <label
+                for="enable-float"
+                id="label-float"
+                class="first-section-label"
+              >
+                Float</label
+              >
+              <input
+                type="text"
+                name="float"
+                id="input-float"
+                placeholder="Float"
+                disabled
+              />
+            </p>
+            <p>
+              <input
+                onclick="trackStatus('enable-date','label-date', 'input-date')"
+                type="checkbox"
+                name="date"
+                id="enable-date"
+              />
+              <label
+                for="enable-date"
+                id="label-date"
+                class="first-section-label"
+              >
+                Date</label
+              >
+              <input type="date" name="date" id="input-date" disabled />
+            </p>
+            <p>
+              <input
+                onclick="trackStatus('enable-boolean','label-boolean', 'input-boolean')"
+                type="checkbox"
+                name="boolean"
+                id="enable-boolean"
+              />
+              <label
+                for="enable-boolean"
+                id="label-boolean"
+                class="first-section-label"
+              >
+                Boolean</label
+              >
+              <input
+                type="number"
+                name="boolean"
+                id="input-boolean"
+                min="0"
+                max="1"
+                placeholder="Choose the boolean ..."
+                disabled
+              />
+            </p>
+            <input
+              type="button"
+              name="search"
+              value="Search"
+              class="search-button"
+            />
+          </fieldset>
+        </form>
+      </section>
+      <section id="display-table" class="second-section">
+        <table class="table" border="1" style="width: 100%">
+          <thead>
+            <tr>
+              <th class="col">ID</th>
+              <th class="col">String</th>
+              <th class="col">Integer</th>
+              <th class="col">Float</th>
+              <th class="col">Date</th>
+              <th class="col">Boolean</th>
+              <th class="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach((item) => { %>
+            <tr>
+              <td class="row"><%= item.ID %></td>
+              <td class="row"><%= item.String %></td>
+              <td class="row"><%= item.Integer %></td>
+              <td class="row"><%= item.Float %></td>
+              <td class="row"><%= item.Date %></td>
+              <td class="row"><%= item.Boolean %></td>
+              <td class="row">
+                <input type="button" value="Edit" class="edit-button" />
+                <input type="button" value="Delete" class="delete-button" />
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <br />
+        <input type="button" value="Pagination" class="pagination" />
+      </section>
+    </main>
+    <section>
+      <br />
+      <input type="button" value="Add" class="add-button" href="./add.ejs" />
+    </section>
+    <aside></aside>
+    <footer></footer>
+  </body>
+  <script>
+    const arrStatus = {
+      enable_id: false,
+      enable_string: false,
+      enable_integer: false,
+      enable_float: false,
+      enable_date: false,
+      enable_boolean: false,
+    };
+
+    function trackStatus(name, label, input) {
+      if (document.getElementById(name).checked) {
+        document.getElementById(label).style.color = "#000000";
+        document.getElementById(input).disabled = false;
+        // arrStatus[name] = false
+        // console.log(`if true `+ arrStatus[name]);
+      } else {
+        document.getElementById(label).style.color = "#c2c2c2";
+        document.getElementById(input).disabled = true;
+        // arrStatus[name] = true
+        // console.log(`if else `+ arrStatus[name]);
+      }
+    }
+
+    function printStatus(id, input) {
+      let a = document.getElementById(id).checked;
+      let b = document.getElementById(input).disabled;
+      console.log(`hasil generate ${generateStatus(2)}`);
+      return console.log(
+        `ini id : ${id} status checknya ${a}\ninput : ${input} status disablednya ${b}`
+      );
+    }
+  </script>
+</html>

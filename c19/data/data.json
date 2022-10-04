@@ -1,0 +1,19 @@
+[
+	{
+		"ID": 1,
+		"String": "One Piece",
+		"Integer": 1,
+		"Float": 2.5,
+		"Date": "2022-11-02",
+		"Boolean": 1
+	},
+	{
+		"ID": 2,
+		"String": "What Piece",
+		"Integer": 1,
+		"Float": 4.5,
+		"Date": "2023-11-02",
+		"Boolean": 0
+	}
+	
+]
