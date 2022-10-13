@@ -5,37 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge 19 - BREAD Express</title>
-    <link defer rel="stylesheet" href="/views/styles.css"/>
-    <script defer src="/views/script.js"></script>
+    <link defer rel="stylesheet" href="/views/styles.css" />
+  <script defer src="/views/script.js"></script>
+
   </head>
   <body>
     <header class="header-title">
       <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <main>
-      <section id="index-form" class="first-section">
-        <h2>Filter</h2>
-        <form action="/" method="GET">
-          <fieldset>
+      <section id="edit-form" class="first-section">
+        <h2>Edit Data</h2>
+        <form action="/edit/<%= data.ID %>" method="POST">
             <p>
               <input
                 type="checkbox"
                 id="enable-id"
-                checked
+                disabled
               />
               <label 
-              for="enable-id" 
+              for="enable-id"
               enable-id=""
-              class="first-section-label">
+              class="first-section-label" 
+              style="color:grey">
                 ID</label
               >
               <input
                 type="text"
+                class="form-control"
                 name="id"
                 id="input-id"
                 enable-id=""
                 placeholder="ID"
-                value="<%= filter.id ? filter.id: '' %>"
+                value="<%= data.ID %>"
+                disabled
               />
             </p>
             <p>
@@ -53,11 +56,12 @@
               >
               <input
                 type="text"
+                class="form-control"
                 name="string"
                 id="input-string"
                 enable-string=""
                 placeholder="String"
-                value="<%= filter.string ? filter.string : '' %>"
+                value="<%= data.String %>"
               />
             </p>
             <p>
@@ -75,11 +79,12 @@
               >
               <input
                 type="number"
+                class="form-control"
                 name="integer"
                 id="input-integer"
                 enable-integer=""
                 placeholder="Integer"
-                value="<%= filter.integer ? filter.integer : '' %>"
+                value="<%= data.Integer %>"
               />
             </p>
             <p>
@@ -97,12 +102,12 @@
               >
               <input
                 type="number"
+                class="form-control"
                 name="float"
                 id="input-float"
                 enable-float=""
                 placeholder="Float"
-                step="any"
-                value="<%= filter.float ? filter.float : '' %>"
+                value="<%= data.Float %>"
               />
             </p>
             <p>
@@ -118,12 +123,11 @@
               >
                 Date</label
               >
-              <input 
-              type="date" 
+              <input type="date" class="form-control" 
               name="date" 
-              id="input-date" 
-              enable-date=""
-              value="<%= filter.date ? filter.date : '' %>"
+              id="input-date"
+              enable-date="" 
+              value="<%= data.Date %>"
               />
             </p>
             <p>
@@ -141,66 +145,28 @@
               >
               <input
                 type="number"
+                class="form-control"
                 name="boolean"
                 id="input-boolean"
-                enable-boolean=""
                 min="0"
                 max="1"
-                placeholder="Choose the boolean ..."
-                value="<%= filter.boolean ? filter.boolean : '' %>"
+                enable-boolean=""
+                placeholder="Choose the boolean..."
+                value="<%= data.Boolean %>"
               />
             </p>
-          </fieldset>
-          <button
-            type="submit"
-            id="search-button"
-            class="btn btn-info"
-            disabled
-          />Search</button>
+            <button
+              type="submit"
+              class="btn btn-info"
+            />Update</button>
+            <a href="/">
+              <button
+                type="button"
+                class="btn btn-info"
+              />Back</button>
+            </a>
         </form>
       </section>
-      <section class="second-section">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">String</th>
-              <th scope="col">Integer</th>
-              <th scope="col">Float</th>
-              <th scope="col">Date</th>
-              <th scope="col">Boolean</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% data.forEach((item) => { %>
-            <tr>
-              <th scope="row"><%= item.ID %></th>
-              <td><%= item.String %></td>
-              <td><%= item.Integer %></td>
-              <td><%= item.Float %></td>
-              <td><%= item.Date %></td>
-              <td><%= item.Boolean %></td>
-              <td>
-                <a href="/edit/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn btn-success" />Edit </button>
-                </a>
-                <a href="/delete/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn btn-danger" onclick="return confirm('Delete ?')"/>Delete
-                </button>
-                </a>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-        <br />
-        <input type="button" value="Pagination" class="pagination" />
-      </section>
     </main>
-    <section>
-      <br />
-      <a href="/add" class="btn btn-primary">Add</a>
-    </section>
   </body>
 </html>

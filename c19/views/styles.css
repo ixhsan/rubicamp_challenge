@@ -11,9 +11,9 @@ h1 {
   text-align: left;
 }
 
-.first-section-label {
+/* .first-section-label {
     color: #c2c2c2;
-}
+} */
 
 /* fieldset > label {
   display: inline-block;
@@ -37,6 +37,10 @@ tr:nth-child(even) {
   background-color: #b8b8b8;
 }
 
+/* .first-section-label {
+  color: #c2c2c2
+} */
+
 .search-button, .add-button {
   background-color: #067dd1;
   color: #fff;
@@ -53,7 +57,7 @@ tr:nth-child(even) {
   padding: 5px 10px;
 }
 
-.delete-button {
+.delete-button, .back-button {
   background-color: #ac3425;
   color: #fff;
   border-style: none;

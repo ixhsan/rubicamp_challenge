@@ -1,12 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>test</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 19 - BREAD Express</title>
+    <link defer rel="stylesheet" href="/views/styles.css"/>
+    <script defer src="/views/script.js"></script>
+  </head>
+  <body>
+    <header class="header-title">
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+    <main>
+      <section id="add-form" class="first-section">
+        <h2>Add Data</h2>
+        <form action="/add" method="POST">
+            <p>
+              <input
+                type="checkbox"
+                id="enable-id"
+                disabled
+              />
+              <label 
+              for="enable-id" 
+              enable-id=""
+              class="first-section-label"
+              >
+                ID</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="id"
+                id="add-id"
+                enable-id=""
+                placeholder="ID"
+                value="<%= data.length + 1 %>"
+                disabled
+              />
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                id="enable-string"
+                checked
+              />
+              <label
+                for="enable-string"
+                enable-string=""
+                class="first-section-label"
+              >
+                String</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="string"
+                id="add-string"
+                enable-string=""
+                placeholder="String"
+              />
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                id="enable-integer"
+                checked
+              />
+              <label
+                for="enable-integer"
+                enable-integer=""
+                class="first-section-label"
+              >
+                Integer</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="integer"
+                id="add-integer"
+                enable-integer=""
+                placeholder="Integer"
+              />
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                id="enable-float"
+                checked
+              />
+              <label
+                for="enable-float"
+                enable-float=""
+                class="first-section-label"
+              >
+                Float</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="float"
+                id="add-float"
+                enable-float=""
+                placeholder="Float"
+              />
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                id="enable-date"
+                checked
+              />
+              <label
+                for="enable-date"
+                enable-date=""
+                class="first-section-label"
+              >
+                Date</label
+              >
+              <input 
+              type="date" 
+              class="form-control" 
+              name="date" 
+              id="add-date"
+              enable-date=""
+              />
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                id="enable-boolean"
+                checked
+              />
+              <label
+                for="enable-boolean"
+                enable-boolean=""
+                class="first-section-label"
+              >
+                Boolean</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="boolean"
+                id="add-boolean"
+                min="0"
+                max="1"
+                enable-boolean=""
+                placeholder="Choose the boolean..."
+              />
+            </p>
+            <button
+              type="submit"
+              class="btn btn-info"
+            />Add</button>
+            <a href="/">
+              <button
+                type="button"
+                class="btn btn-info"
+              />Back</button>
+            </a>
+        </form>
+      </section>
+    </main>
+  </body>
 </html>
