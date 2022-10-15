@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
-let data = require('./data')
+let dataSource = require('./data')
 
 router
     .route('/:id')
@@ -9,15 +9,20 @@ router
         const { id } = req.params
 
         const newData = []
-        for (let i = 0; i < data.length; i++) {
-            if (Number(id) !== data[i].ID) {
-                newData.push(data[i])
+        for (let i = 0; i < dataSource.length; i++) {
+            if (Number(id) !== dataSource[i].ID) {
+                console.log({dataBaru: newData});
+                newData.push(dataSource[i])
             }
         }
-
-        data = newData
-        fs.writeFileSync('./data/data.json', JSON.stringify(data, null, 4))
-        res.redirect('/')
+        // console.log({
+        //     data: dataSource, 
+        //     dataBaru: newData,
+        //     checkModule: module.children
+        // });
+        // dataSource = newData
+        fs.writeFileSync('./data/data.json', JSON.stringify(newData, null, 4))
+        res.redirect('/?page=1')
     })
 
 module.exports = router

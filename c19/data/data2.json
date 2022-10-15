@@ -1,0 +1,41 @@
+[
+    {
+        "ID": 1,
+        "String": "One Piece",
+        "Integer": 1,
+        "Float": 2.5,
+        "Date": "2022-11-02",
+        "Boolean": 1
+    },
+    {
+        "ID": 2,
+        "String": "What Piece",
+        "Integer": 1,
+        "Float": 4.5,
+        "Date": "2023-11-02",
+        "Boolean": 0
+    },
+    {
+        "ID": 3,
+        "String": "Naruto",
+        "Integer": "2",
+        "Float": "1.6",
+        "Date": "2022-10-07",
+        "Boolean": "-1"
+    },
+    {
+        "ID": 4,
+        "String": "teste",
+        "Date": "2022-10-10",
+        "Integer": "222",
+        "Float": "4.5",
+        "Boolean": "1"
+    },
+    {
+        "ID": 20,
+        "String": "nope",
+        "Integer": "20",
+        "Date": "2022-10-18",
+        "Boolean": "1"
+    }
+]

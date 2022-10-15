@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge 19 - BREAD Express</title>
     <link defer rel="stylesheet" href="/views/styles.css"/>
-    <script defer src="/views/script.js"></script>
+    <script defer src="/script/add.js"></script>
   </head>
   <body>
     <header class="header-title">
@@ -16,12 +16,7 @@
       <section id="add-form" class="first-section">
         <h2>Add Data</h2>
         <form action="/add" method="POST">
-            <p>
-              <input
-                type="checkbox"
-                id="enable-id"
-                disabled
-              />
+            <div>
               <label 
               for="enable-id" 
               enable-id=""
@@ -39,13 +34,8 @@
                 value="<%= data.length + 1 %>"
                 disabled
               />
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="enable-string"
-                checked
-              />
+            </div>
+            <div>
               <label
                 for="enable-string"
                 enable-string=""
@@ -60,14 +50,10 @@
                 id="add-string"
                 enable-string=""
                 placeholder="String"
+                required
               />
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="enable-integer"
-                checked
-              />
+            </div>
+            <div>
               <label
                 for="enable-integer"
                 enable-integer=""
@@ -82,14 +68,10 @@
                 id="add-integer"
                 enable-integer=""
                 placeholder="Integer"
+                required
               />
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="enable-float"
-                checked
-              />
+            </div>
+            <div>
               <label
                 for="enable-float"
                 enable-float=""
@@ -102,16 +84,13 @@
                 class="form-control"
                 name="float"
                 id="add-float"
+                step="0.0001"
                 enable-float=""
                 placeholder="Float"
+                required
               />
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="enable-date"
-                checked
-              />
+            </div>
+            <div>
               <label
                 for="enable-date"
                 enable-date=""
@@ -125,14 +104,10 @@
               name="date" 
               id="add-date"
               enable-date=""
+              required
               />
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="enable-boolean"
-                checked
-              />
+            </div>
+            <div>
               <label
                 for="enable-boolean"
                 enable-boolean=""
@@ -149,8 +124,9 @@
                 max="1"
                 enable-boolean=""
                 placeholder="Choose the boolean..."
+                required
               />
-            </p>
+            </div>
             <button
               type="submit"
               class="btn btn-info"
@@ -159,7 +135,7 @@
               <button
                 type="button"
                 class="btn btn-info"
-              />Back</button>
+              />Cancel</button>
             </a>
         </form>
       </section>

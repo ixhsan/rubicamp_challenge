@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge 19 - BREAD Express</title>
     <link defer rel="stylesheet" href="/views/styles.css" />
-  <script defer src="/views/script.js"></script>
+  <script defer src="/script/edit.js"></script>
 
   </head>
   <body>
@@ -18,23 +18,18 @@
         <h2>Edit Data</h2>
         <form action="/edit/<%= data.ID %>" method="POST">
             <p>
-              <input
-                type="checkbox"
-                id="enable-id"
-                disabled
-              />
               <label 
               for="enable-id"
               enable-id=""
               class="first-section-label" 
-              style="color:grey">
+              >
                 ID</label
               >
               <input
                 type="text"
                 class="form-control"
                 name="id"
-                id="input-id"
+                id="edit-id"
                 enable-id=""
                 placeholder="ID"
                 value="<%= data.ID %>"
@@ -42,11 +37,6 @@
               />
             </p>
             <p>
-              <input
-                type="checkbox"
-                id="enable-string"
-                checked
-              />
               <label
                 for="enable-string"
                 enable-string=""
@@ -58,18 +48,13 @@
                 type="text"
                 class="form-control"
                 name="string"
-                id="input-string"
+                id="edit-string"
                 enable-string=""
                 placeholder="String"
                 value="<%= data.String %>"
               />
             </p>
             <p>
-              <input
-                type="checkbox"
-                id="enable-integer"
-                checked
-              />
               <label
                 for="enable-integer"
                 enable-integer=""
@@ -81,18 +66,13 @@
                 type="number"
                 class="form-control"
                 name="integer"
-                id="input-integer"
+                id="edit-integer"
                 enable-integer=""
                 placeholder="Integer"
                 value="<%= data.Integer %>"
               />
             </p>
             <p>
-              <input
-                type="checkbox"
-                id="enable-float"
-                checked
-              />
               <label
                 for="enable-float"
                 enable-float=""
@@ -104,18 +84,13 @@
                 type="number"
                 class="form-control"
                 name="float"
-                id="input-float"
-                enable-float=""
+                id="edit-float"
+                step="0.00001"
                 placeholder="Float"
                 value="<%= data.Float %>"
               />
             </p>
             <p>
-              <input
-                type="checkbox"
-                id="enable-date"
-                checked
-              />
               <label
                 for="enable-date"
                 enable-date=""
@@ -125,17 +100,12 @@
               >
               <input type="date" class="form-control" 
               name="date" 
-              id="input-date"
+              id="edit-date"
               enable-date="" 
               value="<%= data.Date %>"
               />
             </p>
             <p>
-              <input
-                type="checkbox"
-                id="enable-boolean"
-                checked
-              />
               <label
                 for="enable-boolean"
                 enable-boolean=""
@@ -147,7 +117,7 @@
                 type="number"
                 class="form-control"
                 name="boolean"
-                id="input-boolean"
+                id="edit-boolean"
                 min="0"
                 max="1"
                 enable-boolean=""
@@ -163,7 +133,7 @@
               <button
                 type="button"
                 class="btn btn-info"
-              />Back</button>
+              />Cancel</button>
             </a>
         </form>
       </section>

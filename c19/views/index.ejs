@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge 19 - BREAD Express</title>
     <link defer rel="stylesheet" href="/views/styles.css"/>
-    <script defer src="/views/script.js"></script>
+    <script defer src="/script/index.js"></script>
   </head>
   <body>
     <header class="header-title">
@@ -17,7 +17,7 @@
         <h2>Filter</h2>
         <form action="/" method="GET">
           <fieldset>
-            <p>
+            <div>
               <input
                 type="checkbox"
                 id="enable-id"
@@ -37,8 +37,8 @@
                 placeholder="ID"
                 value="<%= filter.id ? filter.id: '' %>"
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="enable-string"
@@ -59,8 +59,8 @@
                 placeholder="String"
                 value="<%= filter.string ? filter.string : '' %>"
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="enable-integer"
@@ -81,8 +81,8 @@
                 placeholder="Integer"
                 value="<%= filter.integer ? filter.integer : '' %>"
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="enable-float"
@@ -104,8 +104,8 @@
                 step="any"
                 value="<%= filter.float ? filter.float : '' %>"
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="enable-date"
@@ -125,8 +125,8 @@
               enable-date=""
               value="<%= filter.date ? filter.date : '' %>"
               />
-            </p>
-            <p>
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="enable-boolean"
@@ -149,7 +149,7 @@
                 placeholder="Choose the boolean ..."
                 value="<%= filter.boolean ? filter.boolean : '' %>"
               />
-            </p>
+            </div>
           </fieldset>
           <button
             type="submit"
@@ -195,7 +195,34 @@
           </tbody>
         </table>
         <br />
-        <input type="button" value="Pagination" class="pagination" />
+          <% if (currentPage > 1) { %>
+            <a href="/?page=<%=currentPage-1%> ">
+            <button type="button" class="btn btn-info" />
+            Previous
+            </button>
+          </a> <% } %> 
+        <% for (let i = iterator; i <= endingLink; i++) { %> 
+        <% if (i === currentPage) { %> 
+          <a href="/?page=<%=i%>">
+            <button type="button" class="btn btn-info" />
+            <%=i%>
+            </button>
+          </a>
+          <% continue; %> 
+        <% } else if (i <= 0) { continue;}%> 
+        <a href="/?page=<%=i%>">
+          <button type="button" class="btn btn-info" />
+          <%=i%>
+          </button>
+        </a>
+        <% } %> 
+          <% if(currentPage < numOfPages) { %>
+            <a href="/?page=<%=currentPage+1%> ">
+            <button type="button" class="btn btn-info" />
+            Next
+            </button>
+          </a> <% } %>  
+        <br />
       </section>
     </main>
     <section>

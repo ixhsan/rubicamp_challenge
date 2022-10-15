@@ -4,7 +4,7 @@ const fs = require('fs')
 let data = require('./data')
 
 router
-    .route('')
+    .route('/')
     .get((req, res) => {
         res.render('add', { data })
     })
@@ -13,12 +13,12 @@ router
 
         const dataContainer = { ID: data.length + 1, String: string, Integer: integer, Float: float, Date: date, Boolean: boolean }
 
-        console.log(`ini lifecycle add, method post: `);
-        console.log({ "add-1-req.body-string": string });
-        console.log({ "add-1-req.body-integer": integer });
-        console.log({ "add-1-req.body-float": float });
-        console.log({ "add-1-req.body-date": date });
-        console.log({ "add-1-req.body-boolean": boolean });
+        // console.log(`ini lifecycle add, method post: `);
+        // console.log({ "add-1-req.body-string": string });
+        // console.log({ "add-1-req.body-integer": integer });
+        // console.log({ "add-1-req.body-float": float });
+        // console.log({ "add-1-req.body-date": date });
+        // console.log({ "add-1-req.body-boolean": boolean });
 
 
         for (let key in dataContainer) {
@@ -31,7 +31,7 @@ router
 
         data.push(dataContainer)
         fs.writeFileSync('./data/data.json', JSON.stringify(data, null, 4))
-        res.redirect('/')
+        res.redirect('/?page=1')
         // res.send({success: true, msg: 'User data added Successfully'})
     })
 

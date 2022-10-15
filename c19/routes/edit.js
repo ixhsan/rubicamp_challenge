@@ -27,12 +27,12 @@ router
                 dataId = i
             }
         }
-        console.log(`ini lifecycle edit, method post: `);
-        console.log({ editReqBody: string });
-        console.log({ editReqBody: integer });
-        console.log({ editReqBody: float });
-        console.log({ editReqBody: date });
-        console.log({ editReqBody: boolean });
+        // console.log(`ini lifecycle edit, method post: `);
+        // console.log({ editReqBody: string });
+        // console.log({ editReqBody: integer });
+        // console.log({ editReqBody: float });
+        // console.log({ editReqBody: date });
+        // console.log({ editReqBody: boolean });
 
         data[dataId].String = string
         data[dataId].Integer = integer
@@ -46,10 +46,10 @@ router
             }
         }
 
-        console.log({ editReqBody: data[dataId] });
+        // console.log({ editReqBody: data[dataId] });
 
         fs.writeFileSync('./data/data.json', JSON.stringify(data, null, 4))
-        res.redirect('/')
+        res.redirect('/?page=1')
     })
 
 module.exports = router

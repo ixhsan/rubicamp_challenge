@@ -1,6 +1,3 @@
-console.log(`test`);
-
-// const fillForm = document.getElementById("fill-form")
 const formID = document.getElementById("enable-id")
 const formString = document.getElementById("enable-string")
 const formInteger = document.getElementById("enable-integer")
@@ -21,8 +18,10 @@ function disableOnCheck() {
     if (this.checked) {
         inputID.disabled = false
         labelID.style.color = "#000000"
+        inputID.required = true
     } else {
         inputID.disabled = true
+        inputID.value = ''
         labelID.style.color = "#c2c2c2"
     }
 }
@@ -64,9 +63,6 @@ function validate() {
     }
 }
 
-
-console.log(`test`);
-
 function test() {
     // console.log(this);
     // console.log(this.value);
@@ -77,26 +73,3 @@ function test() {
     // console.log(this.formNoValidate);
     // console.log(this.formTarget);
 }
-
-// good feature
-
-// function validate() {
-
-//     const userInput = [
-//         indexID.value,
-//         indexString.value,
-//         indexInteger.value,
-//         indexFloat.value,
-//         indexDate.value,
-//         indexBoolean.value
-//     ]
-
-//     if (userInput.filter(item => item.length > 0).length) {
-//         indexSearch.disabled = false
-//         console.log(this);
-//         console.log(this.value);
-//         console.log(userInput);
-//     } else {
-//         indexSearch.disabled = true
-//     }
-// }
