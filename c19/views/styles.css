@@ -1,56 +1,103 @@
-html {
+html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
+  box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  /* border:solid; */
 }
 
-body {
-  background-color: #f6f6f6;
+.header-title {
+  margin: 0;
+  font-size: 2rem;
+  text-align: left;
+  /* border: solid; */
 }
 
-h1 {
+h2  {
+  margin: 0px 0px 5px;
+  padding: 5px 5px;
   text-align: left;
 }
 
-form {
+.main-section .user-form{
+}
+
+.main-section .user-form .user-input{
+  align-items: center;
+  margin-bottom: 5px;
+  display: flex;
+  max-width: 800px;
+}
+
+.main-section .user-form .user-input .input{
   width: 100%;
-  max-width: 1200px;
-  min-width: 500px;
-  margin: 0 auto;
-  padding-bottom: 2em;
+  height: 30px;
+  max-width: 800px;
+  border-radius: 5px;
+  border-style:groove;
 }
 
-.col {
-  font-weight: bold;
+.main-section .user-form .user-input label{
+  width: 200px;
 }
 
-tr:nth-child(even) {
-  background-color: #b8b8b8;
+.second-section .table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  width: 100%;
+  min-width: 400px;
+  max-width: 800px;
+  /* border: solid; */
 }
 
-/* .first-section-label {
-  color: #c2c2c2
-} */
+.second-section .table thead th[scope=col],
+.second-section .table tbody th[scope=row] {
+  padding: 12px 15px;
+  border-top: 2px solid #dcdcdc;
+}
 
-.search-button, .add-button {
-  background-color: #067dd1;
+.second-section .table tbody tr:nth-child(odd) {
+  background-color: #dcdcdc;
+}
+
+.second-section .table tbody th[scope=col] {
+  background-color: #fafafa;
+}
+
+.btn {
+  width: 100px;
+  margin: 5px 5px;
+  padding: 8px 5px;
+  border-radius: 5px;
+  font-size: 1em;
   color: #fff;
-  border-style: none;
-  margin: 0 auto;
-  padding: 5px 10px;
 }
 
-.edit-button {
-  background-color: #008751;
-  color: #fff;
-  border-style: none;
-  margin: 0 auto;
-  padding: 5px 10px;
+.search-btn {
+  background-color: #008aed;
 }
 
-.delete-button, .back-button {
-  background-color: #ac3425;
-  color: #fff;
-  border-style: none;
-  margin: 0 auto;
-  padding: 5px 10px;
+.edit-btn {
+  background-color: #00b100;
+  width: 60px;
+}
+
+.delete-btn {
+  background-color: #df1e00;
+}
+
+.add-btn {
+  padding: 5px 5px;
+  width: 60px;
+  background-color: #008aed;
+  color: #ffffff;
+}
+
+.page-btn {
+  padding: 5px 5px;
+  width: auto;
+  border: 0.1em solid #blue;
+  background-color: #ffffff;
+  color: #008aed;
 }

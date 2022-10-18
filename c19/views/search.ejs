@@ -13,11 +13,11 @@
       <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <main>
-      <section id="index-form" class="main-section">
-        <h2>Filters</h2>
-        <form action="/search" method="GET" class="user-form">
-          <!-- <fieldset> -->
-            <div class="user-input">
+      <section id="index-form" class="first-section">
+        <h2>Filter</h2>
+        <form action="/search" method="GET">
+          <fieldset>
+            <div>
               <input
                 type="checkbox"
                 id="enable-id"
@@ -35,11 +35,10 @@
                 id="input-id"
                 enable-id=""
                 placeholder="ID"
-                class="input"
                 value="<%= filter.id ? filter.id: '' %>"
               />
             </div>
-            <div class="user-input">
+            <div>
               <input
                 type="checkbox"
                 id="enable-string"
@@ -58,11 +57,10 @@
                 id="input-string"
                 enable-string=""
                 placeholder="String"
-                class="input"
                 value="<%= filter.string ? filter.string : '' %>"
               />
             </div>
-            <div class="user-input">
+            <div>
               <input
                 type="checkbox"
                 id="enable-integer"
@@ -81,11 +79,10 @@
                 id="input-integer"
                 enable-integer=""
                 placeholder="Integer"
-                class="input"
                 value="<%= filter.integer ? filter.integer : '' %>"
               />
             </div>
-            <div class="user-input">
+            <div>
               <input
                 type="checkbox"
                 id="enable-float"
@@ -105,11 +102,10 @@
                 enable-float=""
                 placeholder="Float"
                 step="any"
-                class="input"
                 value="<%= filter.float ? filter.float : '' %>"
               />
             </div>
-            <div class="user-input">
+            <div>
               <input
                 type="checkbox"
                 id="enable-date"
@@ -126,11 +122,11 @@
               type="date" 
               name="date" 
               id="input-date" 
-              class="input"
+              enable-date=""
               value="<%= filter.date ? filter.date : '' %>"
               />
             </div>
-            <div class="user-input">
+            <div>
               <input
                 type="checkbox"
                 id="enable-boolean"
@@ -151,15 +147,14 @@
                 min="0"
                 max="1"
                 placeholder="Choose the boolean ..."
-                class="input"
                 value="<%= filter.boolean ? filter.boolean : '' %>"
               />
             </div>
-          <!-- </fieldset> -->
+          </fieldset>
           <button
             type="submit"
             id="search-button"
-            class="btn search-btn blue-btn"
+            class="btn btn-info"
             disabled
           />Search</button>
         </form>
@@ -188,10 +183,10 @@
               <td><%= item.Boolean %></td>
               <td>
                 <a href="/edit/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn edit-btn" />Edit </button>
+                  <button type="button" class="btn btn-success" />Edit </button>
                 </a>
                 <a href="/delete/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn delete-btn" onclick="return confirm('Delete ?')"/>Delete
+                  <button type="button" class="btn btn-danger" onclick="return confirm('Delete ?')"/>Delete
                 </button>
                 </a>
               </td>
@@ -200,45 +195,13 @@
           </tbody>
         </table>
         <br />
-          <% if (currentPage > 1) { %>
-            <a href="/?page=<%=currentPage-1%> ">
-            <button type="button" class="page-btn" />
-            Previous
-            </button>
-          </a> 
-          <% } %> 
-        <% for (let i = iterator; i <= endingLink; i++) { %> 
-        <% if (i === currentPage) { %> 
-          <a href="/?page=<%=i%>">
-            <button type="button" class="page-btn" />
-            <%=i%>
-            </button>
-          </a>
-          <% continue; %> 
-        <% } else if (i <= 0) { continue;}%> 
-        <a href="/?page=<%=i%>">
-          <button type="button" class="page-btn" />
-          <%=i%>
-          </button>
-        </a>
-        <% } %> 
-          <% if(currentPage < numOfPages) { %>
-            <a href="/?page=<%=currentPage+1%> ">
-            <button type="button" class="page-btn" />
-            Next
-            </button>
-          </a> 
-          <% } %>  
+        <input type="button" value="Pagination" id="pagination">
         <br />
       </section>
     </main>
     <section>
       <br />
-      <a href="/add">
-        <button type="button" class="btn add-btn blue-btn" />
-        Add
-      </button>
-    </a>
+      <a href="/add" class="btn btn-primary">Add</a>
     </section>
   </body>
 </html>
