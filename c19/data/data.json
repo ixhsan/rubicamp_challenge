@@ -64,10 +64,10 @@
     },
     {
         "ID": 9,
-        "String": "test",
-        "Integer": "55",
-        "Float": "0.5",
-        "Date": "2022-10-10",
+        "String": "tes 13.20",
+        "Integer": "2",
+        "Float": "0.0005",
+        "Date": "2022-10-19",
         "Boolean": "0"
     }
 ]

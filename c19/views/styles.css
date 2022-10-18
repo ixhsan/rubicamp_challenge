@@ -55,6 +55,7 @@ h2  {
 .second-section .table tbody th[scope=row] {
   padding: 12px 15px;
   border-top: 2px solid #dcdcdc;
+  text-align: left;
 }
 
 .second-section .table tbody tr:nth-child(odd) {
