@@ -13,10 +13,10 @@
       <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <main>
-      <section id="add-form" class="first-section">
+      <section id="add-form" class="main-section">
         <h2>Add Data</h2>
-        <form action="/add" method="POST">
-            <div>
+        <form action="/add" method="POST" class="user-form">
+            <div class="user-input">
               <label 
               for="enable-id" 
               enable-id=""
@@ -30,12 +30,13 @@
                 name="id"
                 id="add-id"
                 enable-id=""
+                class="input"
                 placeholder="ID"
                 value="<%= data.length + 1 %>"
                 disabled
               />
             </div>
-            <div>
+            <div class="user-input">
               <label
                 for="enable-string"
                 enable-string=""
@@ -49,11 +50,12 @@
                 name="string"
                 id="add-string"
                 enable-string=""
+                class="input"
                 placeholder="String"
                 required
               />
             </div>
-            <div>
+            <div class="user-input">
               <label
                 for="enable-integer"
                 enable-integer=""
@@ -67,11 +69,12 @@
                 name="integer"
                 id="add-integer"
                 enable-integer=""
+                class="input"
                 placeholder="Integer"
                 required
               />
             </div>
-            <div>
+            <div class="user-input">
               <label
                 for="enable-float"
                 enable-float=""
@@ -86,11 +89,12 @@
                 id="add-float"
                 step="0.0001"
                 enable-float=""
+                class="input"
                 placeholder="Float"
                 required
               />
             </div>
-            <div>
+            <div class="user-input">
               <label
                 for="enable-date"
                 enable-date=""
@@ -104,10 +108,11 @@
               name="date" 
               id="add-date"
               enable-date=""
+              class="input"
               required
               />
             </div>
-            <div>
+            <div class="user-input">
               <label
                 for="enable-boolean"
                 enable-boolean=""
@@ -123,13 +128,14 @@
                 min="0"
                 max="1"
                 enable-boolean=""
+                class="input"
                 placeholder="Choose the boolean..."
                 required
               />
             </div>
             <button
               type="submit"
-              class="btn btn-info"
+              class="btn add-btn"
             />Add</button>
             <a href="/">
               <button

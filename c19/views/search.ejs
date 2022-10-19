@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge 19 - BREAD Express</title>
     <link defer rel="stylesheet" href="/views/styles.css"/>
-    <script defer src="/script/index.js"></script>
+    <script defer src="/script/search.js"></script>
   </head>
   <body>
     <header class="header-title">
       <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <main>
-      <section id="index-form" class="first-section">
-        <h2>Filter</h2>
-        <form action="/search" method="GET">
-          <fieldset>
-            <div>
+      <section id="index-form" class="main-section">
+        <h2>Filters</h2>
+        <form action="/search" method="GET" class="user-form">
+          <!-- <fieldset> -->
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-id"
@@ -35,10 +35,11 @@
                 id="input-id"
                 enable-id=""
                 placeholder="ID"
+                class="input"
                 value="<%= filter.id ? filter.id: '' %>"
               />
             </div>
-            <div>
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-string"
@@ -55,12 +56,13 @@
                 type="text"
                 name="string"
                 id="input-string"
+                class="input"
                 enable-string=""
                 placeholder="String"
                 value="<%= filter.string ? filter.string : '' %>"
               />
             </div>
-            <div>
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-integer"
@@ -78,11 +80,12 @@
                 name="integer"
                 id="input-integer"
                 enable-integer=""
+                class="input"
                 placeholder="Integer"
                 value="<%= filter.integer ? filter.integer : '' %>"
               />
             </div>
-            <div>
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-float"
@@ -100,12 +103,13 @@
                 name="float"
                 id="input-float"
                 enable-float=""
+                class="input"
                 placeholder="Float"
                 step="any"
                 value="<%= filter.float ? filter.float : '' %>"
               />
             </div>
-            <div>
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-date"
@@ -123,10 +127,11 @@
               name="date" 
               id="input-date" 
               enable-date=""
+              class="input"
               value="<%= filter.date ? filter.date : '' %>"
               />
             </div>
-            <div>
+            <div class="user-input">
               <input
                 type="checkbox"
                 id="enable-boolean"
@@ -144,17 +149,18 @@
                 name="boolean"
                 id="input-boolean"
                 enable-boolean=""
+                class="input"
                 min="0"
                 max="1"
                 placeholder="Choose the boolean ..."
                 value="<%= filter.boolean ? filter.boolean : '' %>"
               />
             </div>
-          </fieldset>
+          <!-- </fieldset> -->
           <button
             type="submit"
             id="search-button"
-            class="btn btn-info"
+            class="btn search-btn"
             disabled
           />Search</button>
         </form>
@@ -183,10 +189,10 @@
               <td><%= item.Boolean %></td>
               <td>
                 <a href="/edit/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn btn-success" />Edit </button>
+                  <button type="button" class="btn edit-btn" />Edit </button>
                 </a>
                 <a href="/delete/<%= item.ID %>" style="color: white">
-                  <button type="button" class="btn btn-danger" onclick="return confirm('Delete ?')"/>Delete
+                  <button type="button" class="btn delete-btn" onclick="return confirm('Delete ?')"/>Delete
                 </button>
                 </a>
               </td>

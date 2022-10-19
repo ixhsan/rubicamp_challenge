@@ -14,120 +14,115 @@
       <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <main>
-      <section id="edit-form" class="first-section">
-        <h2>Edit Data</h2>
-        <form action="/edit/<%= data.ID %>" method="POST">
-            <p>
+      <section id="edit-form" class="main-section">
+        <h2>Filters</h2>
+        <form action="/search" method="GET" class="user-form">
+          <!-- <fieldset> -->
+            <div class="user-input">
               <label 
-              for="enable-id"
-              enable-id=""
-              class="first-section-label" 
-              >
+              for="edit-id" 
+              class="main-section-label">
                 ID</label
               >
               <input
                 type="text"
-                class="form-control"
                 name="id"
                 id="edit-id"
-                enable-id=""
                 placeholder="ID"
+                class="input"
                 value="<%= data.ID %>"
                 disabled
               />
-            </p>
-            <p>
+            </div>
+            <div class="user-input">
               <label
-                for="enable-string"
-                enable-string=""
-                class="first-section-label"
+                for="edit-string"
+                class="main-section-label"
               >
                 String</label
               >
               <input
                 type="text"
-                class="form-control"
                 name="string"
                 id="edit-string"
-                enable-string=""
                 placeholder="String"
+                class="input"
                 value="<%= data.String %>"
               />
-            </p>
-            <p>
+            </div>
+            <div class="user-input">
               <label
-                for="enable-integer"
-                enable-integer=""
-                class="first-section-label"
+                for="edit-integer"
+                class="main-section-label"
               >
                 Integer</label
               >
               <input
                 type="number"
-                class="form-control"
                 name="integer"
                 id="edit-integer"
                 enable-integer=""
                 placeholder="Integer"
+                class="input"
                 value="<%= data.Integer %>"
+                pattern=""
               />
-            </p>
-            <p>
+            </div>
+            <div class="user-input">
               <label
-                for="enable-float"
-                enable-float=""
-                class="first-section-label"
+                for="edit-float"
+                class="main-section-label"
               >
                 Float</label
               >
               <input
                 type="number"
-                class="form-control"
                 name="float"
                 id="edit-float"
-                step="0.00001"
                 placeholder="Float"
+                step="any"
+                class="input"
                 value="<%= data.Float %>"
+                pattern="^\d+$"
               />
-            </p>
-            <p>
+            </div>
+            <div class="user-input date-form">
               <label
-                for="enable-date"
-                enable-date=""
-                class="first-section-label"
+                for="edit-date"
+                class="main-section-label"
               >
                 Date</label
               >
-              <input type="date" class="form-control" 
-              name="date" 
-              id="edit-date"
-              enable-date="" 
-              value="<%= data.Date %>"
-              />
-            </p>
-            <p>
+                <input 
+                type="text" 
+                name="date" 
+                id="edit-date" 
+                class="input"
+                value="<%= data.Date %>"
+                />
+            </div>
+            <div class="user-input">
               <label
-                for="enable-boolean"
-                enable-boolean=""
-                class="first-section-label"
+                for="edit-boolean"
+                class="main-section-label"
               >
                 Boolean</label
               >
               <input
                 type="number"
-                class="form-control"
                 name="boolean"
                 id="edit-boolean"
+                enable-boolean=""
                 min="0"
                 max="1"
-                enable-boolean=""
-                placeholder="Choose the boolean..."
-                value="<%= data.Boolean %>"
+                placeholder="Choose the boolean ..."
+                class="input"
+                value="<%= data.boolean %>"
               />
-            </p>
+            </div>
             <button
               type="submit"
-              class="btn btn-info"
+              class="btn search-btn"
             />Update</button>
             <a href="/">
               <button

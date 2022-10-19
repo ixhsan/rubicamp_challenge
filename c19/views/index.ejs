@@ -83,6 +83,7 @@
                 placeholder="Integer"
                 class="input"
                 value="<%= filter.integer ? filter.integer : '' %>"
+                pattern=""
               />
             </div>
             <div class="user-input">
@@ -107,9 +108,10 @@
                 step="any"
                 class="input"
                 value="<%= filter.float ? filter.float : '' %>"
+                pattern="^\d+$"
               />
             </div>
-            <div class="user-input">
+            <div class="user-input date-form">
               <input
                 type="checkbox"
                 id="enable-date"
@@ -118,17 +120,33 @@
               <label
                 for="enable-date"
                 enable-date=""
-                class="first-section-label"
+                class="date-label"
               >
                 Date</label
               >
-              <input 
-              type="date" 
-              name="date" 
-              id="input-date" 
-              class="input"
-              value="<%= filter.date ? filter.date : '' %>"
-              />
+              <div class="search-date" enable-date="">
+                <input 
+                type="text" 
+                name="date" 
+                id="input-date" 
+                enable-date=""
+                class="input date"
+                placeholder="start date"
+                onfocus="(this.type='date')" onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+                />
+                <p>to</p>
+                <input 
+                type="text" 
+                name="date" 
+                id="input-date2" 
+                enable-date=""
+                class="input date"
+                placeholder="end-date"
+                onfocus="(this.type='date')" onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+                />
+              </div>
             </div>
             <div class="user-input">
               <input
@@ -159,7 +177,7 @@
           <button
             type="submit"
             id="search-button"
-            class="btn search-btn blue-btn"
+            class="btn search-btn"
             disabled
           />Search</button>
         </form>
@@ -235,7 +253,7 @@
     <section>
       <br />
       <a href="/add">
-        <button type="button" class="btn add-btn blue-btn" />
+        <button type="button" class="btn add-btn" />
         Add
       </button>
     </a>

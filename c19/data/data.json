@@ -2,10 +2,10 @@
     {
         "ID": 1,
         "String": "One Piece",
-        "Integer": 1,
-        "Float": 2.5,
+        "Integer": "1",
+        "Float": "2.50001",
         "Date": "2022-11-02",
-        "Boolean": 1
+        "Boolean": "0"
     },
     {
         "ID": 2,
@@ -21,7 +21,7 @@
         "Integer": "2",
         "Float": "14.60008",
         "Date": "2022-10-08",
-        "Boolean": "1"
+        "Boolean": "0"
     },
     {
         "ID": 4,

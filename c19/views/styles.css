@@ -1,5 +1,6 @@
-html, body {
-  margin: 0;
+html,
+body {
+  margin: 5px 10px;
   padding: 0;
   width: 100%;
   box-sizing: border-box;
@@ -14,56 +15,64 @@ html, body {
   /* border: solid; */
 }
 
-h2  {
+h2 {
   margin: 0px 0px 5px;
   padding: 5px 5px;
   text-align: left;
+  /* border: solid; */
 }
 
-.main-section .user-form{
-}
-
-.main-section .user-form .user-input{
+.main-section .user-form .user-input {
+  max-width: 800px;
+  display: flex;
   align-items: center;
   margin-bottom: 5px;
-  display: flex;
-  max-width: 800px;
+  /* border: solid; */
 }
 
-.main-section .user-form .user-input .input{
+.main-section .user-form .user-input .input {
+  max-width: 800px;
   width: 100%;
   height: 30px;
-  max-width: 800px;
   border-radius: 5px;
-  border-style:groove;
+  border-style: groove;
+  /* border: solid; */
 }
 
-.main-section .user-form .user-input label{
+.main-section .user-form .user-input .input:required:valid {
+  border: 1px solid green;
+}
+
+.main-section .user-form .user-input .input:required:invalid {
+  border: 1px solid red;
+}
+
+.main-section .user-form .user-input .main-section-label {
   width: 200px;
 }
 
 .second-section .table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin: 25px 0 5px;
   width: 100%;
   min-width: 400px;
   max-width: 800px;
   /* border: solid; */
 }
 
-.second-section .table thead th[scope=col],
-.second-section .table tbody th[scope=row] {
+.second-section .table tbody th[scope="row"] {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.second-section .table thead th[scope="col"] {
   padding: 12px 15px;
   border-top: 2px solid #dcdcdc;
   text-align: left;
 }
 
 .second-section .table tbody tr:nth-child(odd) {
-  background-color: #dcdcdc;
-}
-
-.second-section .table tbody th[scope=col] {
-  background-color: #fafafa;
+  background-color: #e9e9e9;
 }
 
 .btn {
@@ -71,12 +80,25 @@ h2  {
   margin: 5px 5px;
   padding: 8px 5px;
   border-radius: 5px;
+  border-style: none;
   font-size: 1em;
   color: #fff;
 }
 
+.btn:hover,
+.btn:focus,
+.btn:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.btn:disabled {
+  background-color: #dcdcdc;
+}
+
 .search-btn {
-  background-color: #008aed;
+  background-color: #1e90ff;
 }
 
 .edit-btn {
@@ -89,16 +111,31 @@ h2  {
 }
 
 .add-btn {
-  padding: 5px 5px;
+  margin: 2px 2px;
   width: 60px;
-  background-color: #008aed;
+  background-color: #1e90ff;
+  border-style: none;
+  border-radius: 5px;
   color: #ffffff;
 }
 
 .page-btn {
   padding: 5px 5px;
   width: auto;
-  border: 0.1em solid #blue;
   background-color: #ffffff;
-  color: #008aed;
+  color: #1e90ff;
+}
+
+.main-section .date-form {
+  display: flex;
+  margin: 5px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.main-section .date-form .date-label {
+  width: 155px;
+  /* border: solid; */
+}
+
+.main-section .date-form p {
+  margin: 0px;
 }

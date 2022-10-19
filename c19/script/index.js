@@ -1,3 +1,4 @@
+
 const formID = document.getElementById("enable-id")
 const formString = document.getElementById("enable-string")
 const formInteger = document.getElementById("enable-integer")
@@ -11,6 +12,13 @@ formInteger.addEventListener("change", disableOnCheck)
 formFloat.addEventListener("change", disableOnCheck)
 formDate.addEventListener("change", disableOnCheck)
 formBoolean.addEventListener("change", disableOnCheck)
+formDate.addEventListener("change", function() {
+    if (this.checked) {
+        document.getElementById("input-date2".disabled = false)
+    } else {
+        document.getElementById("input-date2".disabled = true)
+    }
+})
 
 function disableOnCheck() {
     const labelID = document.querySelector(`label[${this.id}]`)
