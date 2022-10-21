@@ -1,0 +1,73 @@
+[
+    {
+        "ID": 1,
+        "String": "One Piece",
+        "Integer": "1",
+        "Float": "2.50001",
+        "Date": "2022-11-02",
+        "Boolean": "0"
+    },
+    {
+        "ID": 2,
+        "String": "What Piece",
+        "Integer": 1,
+        "Float": 4.5,
+        "Date": "2023-11-02",
+        "Boolean": 0
+    },
+    {
+        "ID": 3,
+        "String": "Naruto",
+        "Integer": "2",
+        "Float": "14.60008",
+        "Date": "2022-10-08",
+        "Boolean": "0"
+    },
+    {
+        "ID": 4,
+        "String": "teste",
+        "Date": "2022-10-10",
+        "Integer": "222",
+        "Float": "4.5",
+        "Boolean": "1"
+    },
+    {
+        "ID": 20,
+        "String": "nope",
+        "Integer": "20",
+        "Date": "2022-10-18",
+        "Boolean": "1"
+    },
+    {
+        "ID": 6,
+        "String": "test 18.40",
+        "Integer": "222",
+        "Float": "7.4996",
+        "Date": "2022-10-15",
+        "Boolean": "0"
+    },
+    {
+        "ID": 7,
+        "String": "test 18.40",
+        "Integer": "222",
+        "Float": "7.4996",
+        "Date": "2022-10-15",
+        "Boolean": "0"
+    },
+    {
+        "ID": 8,
+        "String": "test 19.12",
+        "Integer": "1",
+        "Float": "0.0027",
+        "Date": "2022-10-15",
+        "Boolean": "1"
+    },
+    {
+        "ID": 9,
+        "String": "tes 13.20",
+        "Integer": "2",
+        "Float": "0.0005",
+        "Date": "2022-10-19",
+        "Boolean": "0"
+    }
+]
