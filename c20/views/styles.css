@@ -111,7 +111,7 @@ h2 {
 }
 
 .add-btn {
-  margin: 2px 2px;
+  margin: 50px 2px;
   width: 60px;
   background-color: #1e90ff;
   border-style: none;
@@ -119,16 +119,45 @@ h2 {
   color: #ffffff;
 }
 
-.page-btn {
-  padding: 5px 5px;
-  width: auto;
-  background-color: #ffffff;
-  color: #1e90ff;
+.navigation {
+  margin: 5px 0px;
 }
 
-.page-btn a[class="active"]{
-  font-weight: bold;
-  border: solid;
+.pagination .page-item { 
+  display: inline-block;
+  margin: 10px 0px;
+  float: left;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border: 1px groove #000;
+}
+
+.pagination li.num {
+  width: 20px;
+}
+
+.pagination li.nav {
+  width: 70px;
+}
+
+.pagination .page-link {
+  text-decoration: none;
+}
+
+.pagination .page-link:visited {
+  color: black;
+}
+
+.pagination .page-item:hover:not(.active) {
+  background-color: #00b100;
+  color: white;
+}
+
+.pagination .active {
+  text-decoration: none;
+  background-color: #1e90ff;
+  color: #fff;
 }
 
 .main-section .date-form {
@@ -138,9 +167,16 @@ h2 {
 }
 .main-section .date-form .date-label {
   width: 155px;
-  /* border: solid; */
 }
 
 .main-section .date-form p {
   margin: 0px;
+}
+
+.btn {
+  margin: 5px 0px;
+}
+
+fieldset {
+  max-width: 800px;
 }

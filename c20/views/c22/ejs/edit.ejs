@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 19 - BREAD Express</title>
+    <link defer rel="stylesheet" href="/views/styles.css" />
+  <script defer src="/script/edit.js"></script>
+
+  </head>
+  <body>
+    <header class="header-title">
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+    <main>
+      <section id="edit-form" class="main-section">
+        <h2>Edit Data</h2>
+        <form action="/edit/<%= data._id %>" method="PUT" class="user-form">
+          <!-- <fieldset> -->
+            <div class="user-input">
+              <label 
+              for="edit-id" 
+              class="main-section-label">
+                ID</label
+              >
+              <input
+                type="text"
+                name="id"
+                id="edit-id"
+                placeholder="ID"
+                class="input"
+                value="<%= data.ID %>"
+              />
+            </div>
+            <div class="user-input">
+              <label
+                for="edit-string"
+                class="main-section-label"
+              >
+                String</label
+              >
+              <input
+                type="text"
+                name="string"
+                id="edit-string"
+                placeholder="String"
+                class="input"
+                value="<%= data.String %>"
+              />
+            </div>
+            <div class="user-input">
+              <label
+                for="edit-integer"
+                class="main-section-label"
+              >
+                Integer</label
+              >
+              <input
+                type="number"
+                name="integer"
+                id="edit-integer"
+                enable-integer=""
+                placeholder="Integer"
+                class="input"
+                value="<%= data.Integer %>"
+                pattern=""
+              />
+            </div>
+            <div class="user-input">
+              <label
+                for="edit-float"
+                class="main-section-label"
+              >
+                Float</label
+              >
+              <input
+                type="number"
+                name="float"
+                id="edit-float"
+                placeholder="Float"
+                step="any"
+                class="input"
+                value="<%= data.Float %>"
+                pattern="^\d+$"
+              />
+            </div>
+            <div class="user-input date-form">
+              <label
+                for="edit-date"
+                class="main-section-label"
+              >
+                Date</label
+              >
+                <input 
+                type="text" 
+                name="date" 
+                id="edit-date" 
+                class="input"
+                onfocus="(this.type='date')" onblur="(this.type='text')"
+                value="<%= data.Date %>"
+                />
+            </div>
+            <div class="user-input">
+              <label
+                for="edit-boolean"
+                class="main-section-label"
+              >
+                Boolean</label
+              >
+              <input
+                type="number"
+                name="boolean"
+                id="edit-boolean"
+                enable-boolean=""
+                min="0"
+                max="1"
+                placeholder="Choose the boolean ..."
+                class="input"
+                value="<%= data.boolean %>"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn search-btn"
+            />Update</button>
+            <a href="/">
+              <button
+                type="button"
+                class="btn btn-info"
+              />Cancel</button>
+            </a>
+        </form>
+      </section>
+    </main>
+    <script>
+      fetch('localhost:3000/')
+    </script>
+  </body>
+</html>

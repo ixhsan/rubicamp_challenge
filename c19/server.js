@@ -5,7 +5,7 @@ const express = require('express')
 let data = require('./routes/data')
 
 const app = express()
-const port = 3000
+const port = 3001
 const filePath = path.join(__dirname, 'views')
 
 app.set('view engine', 'ejs') // register the template engine

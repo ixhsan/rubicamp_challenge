@@ -1,0 +1,178 @@
+html,
+body {
+  margin: 5px 10px;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  /* border:solid; */
+}
+
+.header-title {
+  margin: 0;
+  font-size: 2rem;
+  text-align: left;
+  /* border: solid; */
+}
+
+h2 {
+  margin: 0px 0px 5px;
+  padding: 5px 5px;
+  text-align: left;
+  /* border: solid; */
+}
+
+.main-section .user-form .user-input {
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  /* border: solid; */
+}
+
+.main-section .user-form .user-input .input {
+  max-width: 800px;
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border-style: groove;
+  /* border: solid; */
+}
+
+.main-section .user-form .user-input .input:required:valid {
+  border: 1px solid green;
+}
+
+.main-section .user-form .user-input .input:required:invalid {
+  border: 1px solid red;
+}
+
+.main-section .user-form .user-input .main-section-label {
+  width: 200px;
+}
+
+.second-section .table {
+  border-collapse: collapse;
+  margin: 25px 0 5px;
+  width: 100%;
+  min-width: 400px;
+  max-width: 800px;
+  /* border: solid; */
+}
+
+.second-section .table tbody th[scope="row"] {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.second-section .table thead th[scope="col"] {
+  padding: 12px 15px;
+  border-top: 2px solid #dcdcdc;
+  text-align: left;
+}
+
+.second-section .table tbody tr:nth-child(odd) {
+  background-color: #e9e9e9;
+}
+
+.btn {
+  width: 100px;
+  margin: 5px 5px;
+  padding: 8px 5px;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 1em;
+  color: #fff;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.btn:disabled {
+  background-color: #dcdcdc;
+}
+
+.search-btn {
+  background-color: #1e90ff;
+}
+
+.edit-btn {
+  background-color: #00b100;
+  width: 60px;
+}
+
+.delete-btn {
+  background-color: #df1e00;
+}
+
+.add-btn {
+  margin: 50px 2px;
+  width: 60px;
+  background-color: #1e90ff;
+  border-style: none;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.navigation {
+  margin: 5px 0px;
+}
+
+.pagination .page-item { 
+  display: inline-block;
+  margin: 10px 0px;
+  float: left;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border: 1px groove #000;
+}
+
+.pagination li.num {
+  width: 20px;
+}
+
+.pagination li.nav {
+  width: 70px;
+}
+
+.pagination .page-link {
+  text-decoration: none;
+}
+
+.pagination .page-link:visited {
+  color: black;
+}
+
+.pagination .page-item:hover:not(.active) {
+  background-color: #00b100;
+  color: white;
+}
+
+.pagination .active {
+  text-decoration: none;
+  background-color: #1e90ff;
+  color: #fff;
+}
+
+.main-section .date-form {
+  display: flex;
+  margin: 5px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.main-section .date-form .date-label {
+  width: 155px;
+}
+
+.main-section .date-form p {
+  margin: 0px;
+}
+
+.btn {
+  margin: 5px 0px;
+}

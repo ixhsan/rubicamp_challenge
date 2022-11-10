@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "c20": "nodemon server.js"
+    "c20": "nodemon server_c20.js",
+    "c21": "nodemon server_c21.js",
+    "c22": "nodemon server_c22.js"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +17,10 @@
     "ejs": "^3.1.8",
     "ejs-lint": "^2.0.0",
     "express": "^4.18.1",
+    "moment": "^2.29.4",
+    "mongodb": "^4.11.0",
     "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
     "sqlite3": "^5.1.2"
   }
 }

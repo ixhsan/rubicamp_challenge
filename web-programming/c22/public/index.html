@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 19 - BREAD Express</title>
+    <link defer rel="stylesheet" href="./stylesheets/style.css"/>
+    <!-- <script defer src="/script/c22/index.js"></script> -->
+  </head>
+  <body>
+    <header class="header-title">
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+      <section id="index-form" class="main-section">
+        <h2>Filters</h2>
+        
+      </section>
+    <main>
+      <section class="second-section">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">String</th>
+              <th scope="col">Integer</th>
+              <th scope="col">Float</th>
+              <th scope="col">Date</th>
+              <th scope="col">Boolean</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <br>
+    <div class="btn">
+      <a href="/add">
+        <button type="button" class="btn add-btn" />
+        Add
+      </button>
+    </div>
+
+    <script>
+    //   const readData = () => {
+    //   const data = fetch('http://localhost:3001/data/all')
+    //     .then((response) => {
+    //         response.json()
+    //     })
+    //     .then((data) => {
+    //         console.log(data)
+    //     })
+    //     .then((data) => {
+    //         let html = ''
+    //         data.forEach((item, index) => {
+    //             html += `<tr>
+    //     <th scope="row">${item.data.ID}</th>
+    //     <td>${item.data.String}</td>
+    //     <td>${item.data.Integer}</td>
+    //     <td>${item.data.Float}</td>
+    //     <td>${moment(item.data.Date).format('DD MMM YYYY')}</td>
+    //     <td>${item.data.Boolean}</td>
+    //     <td>
+    //       <a href="/edit/${item.data._id}" style="color: white">
+    //         <button type="button" class="btn edit-btn" />Edit </button>
+    //       </a>
+    //       <a href="/${item.data._id}" style="color: white">
+    //         <button type="button" class="btn delete-btn" onclick="return confirm('Delete ?')"/>Delete
+    //       </button>
+    //       </a>
+    //     </td>
+    //   </tr>`
+    //         });
+    //         document.getElementById('table-body').innerHTML = html
+    //         console.log(err);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     }
+    
+    //   return data
+    // }
+
+    // readData()
+    const readData = () => {
+      return fetch('http://localhost:3001/data/all')
+              .then((response) => response.json())
+              .then((json) => {
+                // console.log(data);
+                let html = ''
+                json.forEach((item, index) => {
+                  html += `<tr>
+                      <th scope="row">${item.ID}</th>
+                      <td>${item.String}</td>
+                      <td>${item.Integer}</td>
+                      <td>${item.Float}</td>
+                      <td>${item.Date}</td>
+                      <td>${item.Boolean}</td>
+                      <td>
+                        <a href="/edit/${item._id}" style="color: white">
+                          <button type="button" class="btn edit-btn" />Edit </button>
+                        </a>
+                        <a href="/${item._id}" style="color: white">
+                          <button type="button" class="btn delete-btn" onclick="return confirm('Delete ?')"/>Delete
+                        </button>
+                        </a>
+                      </td>
+                    </tr>`
+              });
+                document.getElementById('table-body').innerHTML = html
+    })
+  }
+
+    readData()
+    </script>
+  </body>
+</html>

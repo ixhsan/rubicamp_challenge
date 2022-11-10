@@ -14,7 +14,7 @@ INSERT INTO
     data_type("String", "Integer", "Float", "Date", "Boolean")
 VALUES
     ('super', '14','1.3','1993-03-11', 'False'),
-    ('boruto', '19', '7.8.', '2024-02-05', 'False'),
+    ('boruto', '19', '7.8', '2024-02-05', 'False'),
     ('one two', '17', '6.4', '2017-12-11', 'False'),
     ('wind1', '12','1.3','2022-05-08', 'True'),
     ('wind2', '12','1.3','1906-03-11', 'True'),

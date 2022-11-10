@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 21 - BREAD Express</title>
+    <link defer rel="stylesheet" href="/views/styles.css"/>
+    <script defer src="/script/index.js"></script>
+  </head>
+  <body>
+    <header class="header-title">
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+    <main>
+      <section id="index-form" class="main-section">
+        <h2>C21 - Filters</h2>
+        <form action="/c21/search" method="GET" class="user-form">
+          <!-- <fieldset> -->
+            <div class="user-input">
+              <input
+                type="checkbox"
+                id="enable-id"
+                checked
+              />
+              <label 
+              for="enable-id" 
+              enable-id=""
+              class="main-section-label">
+                ID</label
+              >
+              <input
+                type="text"
+                name="id"
+                id="input-id"
+                enable-id=""
+                placeholder="ID"
+                class="input"
+                value="<%= filter.id ? filter.id: '' %>"
+              />
+            </div>
+            <div class="user-input">
+              <input
+                type="checkbox"
+                id="enable-string"
+                checked
+              />
+              <label
+                for="enable-string"
+                enable-string=""
+                class="main-section-label"
+              >
+                String</label
+              >
+              <input
+                type="text"
+                name="string"
+                id="input-string"
+                enable-string=""
+                placeholder="String"
+                class="input"
+                value="<%= filter.string ? filter.string : '' %>"
+              />
+            </div>
+            <div class="user-input">
+              <input
+                type="checkbox"
+                id="enable-integer"
+                checked
+              />
+              <label
+                for="enable-integer"
+                enable-integer=""
+                class="main-section-label"
+              >
+                Integer</label
+              >
+              <input
+                type="number"
+                name="integer"
+                id="input-integer"
+                enable-integer=""
+                placeholder="Integer"
+                class="input"
+                value="<%= filter.integer ? filter.integer : '' %>"
+                pattern=""
+              />
+            </div>
+            <div class="user-input">
+              <input
+                type="checkbox"
+                id="enable-float"
+                checked
+              />
+              <label
+                for="enable-float"
+                enable-float=""
+                class="main-section-label"
+              >
+                Float</label
+              >
+              <input
+                type="number"
+                name="float"
+                id="input-float"
+                enable-float=""
+                placeholder="Float"
+                step="any"
+                class="input"
+                value="<%= filter.float ? filter.float : '' %>"
+                pattern="^\d+$"
+              />
+            </div>
+            <div class="user-input date-form">
+              <input
+                type="checkbox"
+                id="enable-date"
+                checked
+              />
+              <label
+                for="enable-date"
+                enable-date=""
+                class="date-label"
+              >
+                Date</label
+              >
+              <div class="search-date" enable-date="">
+                <input 
+                type="text" 
+                name="date" 
+                id="input-date" 
+                enable-date=""
+                class="input date"
+                placeholder="start date"
+                onfocus="(this.type='date')" onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+                />
+                <p>to</p>
+                <input 
+                type="text" 
+                name="date2"
+                id="input-date2" 
+                enable-date=""
+                class="input date"
+                placeholder="end-date"
+                onfocus="(this.type='date')" onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+                disabled
+                />
+              </div>
+            </div>
+            <div class="user-input">
+              <input
+                type="checkbox"
+                id="enable-boolean"
+                checked
+              />
+              <label
+                for="enable-boolean"
+                enable-boolean=""
+                class="main-section-label"
+              >
+                Boolean</label
+              >
+              <input
+                type="number"
+                name="boolean"
+                id="input-boolean"
+                enable-boolean=""
+                min="0"
+                max="1"
+                placeholder="Choose the boolean ..."
+                class="input"
+                value="<%= filter.boolean ? filter.boolean : '' %>"
+              />
+            </div>
+          <!-- </fieldset> -->
+          <button
+            type="submit"
+            id="search-button"
+            class="btn search-btn"
+            disabled
+          />Search</button>
+        </form>
+      </section>
+      <section class="second-section">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">String</th>
+              <th scope="col">Integer</th>
+              <th scope="col">Float</th>
+              <th scope="col">Date</th>
+              <th scope="col">Boolean</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach((item) => { %>
+            <tr>
+              <th scope="row"><%= item.ID %></th>
+              <td><%= item.String %></td>
+              <td><%= item.Integer %></td>
+              <td><%= item.Float %></td>
+              <td><%= item.Date %></td>
+              <td><%= item.Boolean %></td>
+              <td>
+                <a href="/c21/edit/<%= item.ID %>" style="color: white">
+                  <button type="button" class="btn edit-btn" />Edit </button>
+                </a>
+                <a href="/c21/delete/<%= item.ID %>" style="color: white">
+                  <button type="button" class="btn delete-btn" onclick="return confirm('Delete ?')"/>Delete
+                </button>
+                </a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <br />
+          <% if (currentPage > 1) { %>
+            <a href="/c21/?page=<%=currentPage-1%> ">
+            <button type="button" class="page-btn" />
+            Previous
+            </button>
+          </a> 
+          <% } %> 
+        <% for (let i = iterator; i <= endingLink; i++) { %> 
+        <% if (i === currentPage) { %> 
+          <a href="/c21/?page=<%=i%>">
+            <button type="button" class="page-btn" />
+            <%=i%>
+            </button>
+          </a>
+          <% continue; %> 
+        <% } else if (i <= 0) { continue;}%> 
+        <a href="/c21/?page=<%=i%>">
+          <button type="button" class="page-btn" />
+          <%=i%>
+          </button>
+        </a>
+        <% } %> 
+          <% if(currentPage < numOfPages) { %>
+            <a href="/c21/?page=<%=currentPage+1%> ">
+            <button type="button" class="page-btn" />
+            Next
+            </button>
+          </a> 
+          <% } %>  
+        <br />
+      </section>
+    </main>
+    <section>
+      <br />
+      <a href="/c21/add/">
+        <button type="button" class="btn add-btn" />
+        Add
+      </button>
+    </a>
+    </section>
+  </body>
+</html>

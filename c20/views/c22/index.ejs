@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link defer rel="stylesheet" href="/views/styles_c22.css" />
+    <script defer src="/script/c22/index.js"></script>
+  </head>
+  <body>
+    <header class="header-title">
+        <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+    </header>
+    <section id="search-section">
+      <fieldset>
+        <h2 style="text-align: center;">Filters</h2>
+        <form action="" method="GET" class="user-form">
+          <div class="user-input">
+            <input type="checkbox" id="enable-id" checked />
+            <label for="enable-id" enable-id="" class="input-label">ID</label>
+            <input
+              type="text"
+              name="id"
+              id="search-id"
+              enable-id=""
+              placeholder="ID"
+              class="input"
+              value="<%= filter.id ? filter.id: '' %>"
+            />
+          </div>
+          <div class="user-input">
+            <input type="checkbox" id="enable-string" checked />
+            <label for="enable-string" enable-string="" class="input-label">
+              String</label
+            >
+            <input
+              type="text"
+              name="string"
+              id="search-string"
+              enable-string=""
+              placeholder="String"
+              class="input"
+              value="<%= filter.string ? filter.string : '' %>"
+            />
+          </div>
+          <div class="user-input">
+            <input type="checkbox" id="enable-integer" checked />
+            <label for="enable-integer" enable-integer="" class="input-label">
+              Integer</label
+            >
+            <input
+              type="number"
+              name="integer"
+              id="search-integer"
+              enable-integer=""
+              placeholder="Integer"
+              class="input"
+              value="<%= filter.integer ? filter.integer : '' %>"
+              pattern=""
+            />
+          </div>
+          <div class="user-input">
+            <input type="checkbox" id="enable-float" checked />
+            <label for="enable-float" enable-float="" class="input-label">
+              Float</label
+            >
+            <input
+              type="number"
+              name="float"
+              id="search-float"
+              enable-float=""
+              placeholder="Float"
+              step="any"
+              class="input"
+              value="<%= filter.float ? filter.float : '' %>"
+              pattern="^\d+$"
+            />
+          </div>
+          <div class="search-input date-form">
+            <input type="checkbox" id="enable-date" checked />
+            <label for="enable-date" enable-date="" class="date-label">
+              Date</label
+            >
+            <div class="search-date" enable-date="">
+              <input
+                type="text"
+                name="date"
+                id="search-date"
+                enable-date=""
+                class="input date"
+                placeholder="start date"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+              />
+              <p>to</p>
+              <input
+                type="text"
+                name="date2"
+                id="search-date2"
+                enable-date=""
+                class="input date"
+                placeholder="end-date"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+                value="<%= filter.date ? filter.date : '' %>"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="user-input">
+            <input type="checkbox" id="enable-boolean" checked />
+            <label for="enable-boolean" enable-boolean="" class="input-label">
+              Boolean</label
+            >
+            <input
+              type="number"
+              name="boolean"
+              id="search-boolean"
+              enable-boolean=""
+              min="0"
+              max="1"
+              placeholder="Choose the boolean ..."
+              class="input"
+              value="<%= filter.boolean ? filter.boolean : '' %>"
+            />
+          </div>
+          <button
+            type="submit"
+            id="search-button"
+            class="btn search-btn"
+            disabled
+          >
+            Search
+          </button>
+        </form>
+      </fieldset>
+    </section>
+    <main>
+      <section class="content-section">
+        <fieldset>
+          <h2 style="text-align: center;">Data Table</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">String</th>
+                <th scope="col">Integer</th>
+                <th scope="col">Float</th>
+                <th scope="col">Date</th>
+                <th scope="col">Boolean</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </fieldset>
+      </section>
+    </main>
+    <section id="add-section">
+      <div class="add-btn-section">
+        <a style="color: white" href="#add-form">
+          <button id="add-data-btn" type="button" class="btn add-btn">
+            Add Data
+          </button>
+        </a>
+      </div>
+      <fieldset id="add-field" style="display: none">
+        <form action="/data" method="POST" class="user-form" id="add-form">
+          <div class="user-input">
+            <label for="add-id" class="input-label"> ID</label>
+            <input
+              id="add-id"
+              name="id"
+              class="input"
+              value=""
+              type="text"
+              placeholder="ID"
+            />
+          </div>
+          <div class="user-input">
+            <label for="add-string" class="input-label"> String</label>
+            <input
+              type="text"
+              name="string"
+              id="add-string"
+              placeholder="String"
+              class="input"
+            />
+          </div>
+          <div class="user-input">
+            <label for="add-integer" class="input-label"> Integer</label>
+            <input
+              type="number"
+              name="integer"
+              id="add-integer"
+              placeholder="Integer"
+              class="input"
+              pattern=""
+            />
+          </div>
+          <div class="user-input">
+            <label for="add-float" class="input-label"> Float</label>
+            <input
+              type="number"
+              name="float"
+              id="add-float"
+              placeholder="Float"
+              step="0.0001"
+              class="input"
+              pattern="^\d+$"
+            />
+          </div>
+          <div class="user-input date-form">
+            <label for="add-date" class="input-label"> Date</label>
+            <input
+              type="text"
+              name="date"
+              id="add-date"
+              class="input"
+              placeholder="start date"
+              onfocus="(this.type='date')"
+              onblur="(this.type='text')"
+            />
+          </div>
+          <div class="user-input">
+            <label for="add-boolean" class="input-label"> Boolean</label>
+            <input
+              type="number"
+              name="boolean"
+              id="add-boolean"
+              min="0"
+              max="1"
+              placeholder="Choose the boolean ..."
+              class="input"
+            />
+          </div>
+          <button
+            type="submit"
+            id="add-submit"
+            class="btn add-btn"
+            style="display: none"
+          >
+            Add
+          </button>
+        </form>
+      </fieldset>
+    </section>
+    <script>
+      const addDataBtn = document.getElementById('add-data-btn')
+
+      addDataBtn.addEventListener('click', function () {
+        if (document.getElementById('add-field').style.display == 'block') {
+          document.getElementById('add-field').style.display = 'none'
+          document.getElementById('add-submit').style.display = 'none'
+          document.getElementById('add-data-btn').textContent = 'Add Data'
+          document.getElementById('add-data-btn').style.color = '#fff'
+          document.getElementById('add-data-btn').className = 'btn add-btn'
+        } else {
+          document.getElementById('add-field').style.display = 'block'
+          document.getElementById('add-submit').style.display = 'block'
+          document.getElementById('add-string').focus()
+          document.getElementById('add-data-btn').textContent = 'Cancel'
+          document.getElementById('add-data-btn').style.color = '#000'
+          document.getElementById('add-data-btn').className = 'btn'
+        }
+      })
+
+      const readData = () => {
+        return fetch('http://localhost:3022/data/all')
+          .then((response) => response.json())
+          .then((json) => {
+            let html = ''
+            json.forEach((item, index) => {
+              html += `<tr>
+                <th scope="row">${item.ID}</th>
+                <td>${item.String}</td>
+                <td>${item.Integer}</td>
+                <td>${item.Float}</td>
+                <td>${item.Date}</td>
+                <td>${item.Boolean}</td>
+                <td>
+                  <button type="button" class="btn edit-btn" onclick="editData('${item._id}')">Edit</button>
+                  <button type="button" class="btn delete-btn" onclick="deleteData('${item._id}')">Delete</button>
+                </td>
+              </tr>`
+            })
+            document.getElementById('table-body').innerHTML = html
+          })
+      }
+
+      readData()
+
+      const createData = (ID, String, Integer, Float, Date, Boolean) => {
+        return fetch(`http://localhost:3022/data`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ID,
+            String,
+            Integer,
+            Float,
+            Date,
+            Boolean,
+          }),
+        })
+          .then((response) => {
+            return response.json()
+          })
+          .then((response) => {
+            readData()
+            document.getElementById('add-form').reset()
+          })
+      }
+
+      const editData = (id) => {
+        return fetch(`http://localhost:3022/data/${id}`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            return response.json()
+          })
+          .then((response) => {
+            readData()
+            document.getElementById('add-id').value = response.ID
+            document.getElementById('add-string').value = response.String
+            document.getElementById('add-integer').value = response.Integer
+            document.getElementById('add-float').value = response.Float
+            document.getElementById('add-date').value = response.Date
+            document.getElementById('add-boolean').value = response.Boolean
+            if (document.getElementById('add-field').style.display == 'none') {
+              addDataBtn.click()
+            }
+          })
+      }
+
+      const deleteData = (id) => {
+        return fetch(`http://localhost:3022/data/${id}`, {
+          method: 'DELETE',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            return response.json()
+          })
+          .then((response) => {
+            readData()
+          })
+      }
+
+      document
+        .getElementById('add-form')
+        .addEventListener('submit', function (event) {
+          event.preventDefault()
+          const ID = document.getElementById('add-id').value
+          const String = document.getElementById('add-string').value
+          const Integer = document.getElementById('add-integer').value
+          const Float = document.getElementById('add-float').value
+          const Date = document.getElementById('add-date').value
+          const Boolean = document.getElementById('add-boolean').value
+          createData(ID, String, Integer, Float, Date, Boolean)
+        })
+    </script>
+  </body>
+</html>

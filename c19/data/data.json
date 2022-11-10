@@ -17,11 +17,10 @@
     },
     {
         "ID": 3,
-        "String": "Naruto",
+        "String": "Naruto 2",
         "Integer": "2",
         "Float": "14.60008",
-        "Date": "2022-10-08",
-        "Boolean": "0"
+        "Date": "2022-10-08"
     },
     {
         "ID": 4,

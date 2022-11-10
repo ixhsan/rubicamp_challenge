@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- <input type="button" value="Change this document." onclick="change()"> -->
+    <div id="root">
+      <span border="1"><h3>test div</h3></span>
+      <span border="1"><h3>test div</h3></span>
+      <span border="1"><h3>test div</h3></span>
+    </div>
+    <div id="second-root">
+        <span id="sub">
+          <div border="1"><h3>test span</h3></div>
+          <div border="1"><h3>test span</h3></div>
+          <div border="1"><h3>test span</h3></div>
+        </span>
+    </div>
+
+    <!-- <h2>header</h2>
+    <p>paragraph</p> -->
+  </body>
+  <script>
+    console.log("test");
+    let root = document.getElementById("root");
+    // root.textContent = "TEST TOST TOST";
+    // function change() {
+    //     const header = document.getElementsByTagName("h2").item(0)
+    //     header.firstChild.data = "a dynamic document."
+
+    //     const para = document.getElementsByTagName("p").item(0)
+    //     para.firstChild.data = "This is the first paragraph."
+
+    //     const newText = document.createTextNode("This is the second paragraph.")
+    //     const newElement = document.createElement("p")
+    //     newElement.appendChild(newText)
+    //     para.parentNode.appendChild(newElement)
+    // }
+  </script>
+</html>
