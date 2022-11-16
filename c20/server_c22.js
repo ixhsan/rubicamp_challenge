@@ -45,9 +45,6 @@ main()
     app.use(bodyParser.json())
     app.set('view engine', 'ejs') // register the template engine
     app.set('views', filePath) // specify the views
-    // app.use(express.urlencoded({ extended: false }))
-    // app.use(express.json())
-    // app.use(express.static('./'))
     app.use(express.static(path.join(__dirname, 'public')));
 
     /* ALL ROUTE - C22*/
@@ -55,7 +52,6 @@ main()
     const c22_data = require('./routes/c22/data')(db)
 
     app.use('/', c22_index)
-    app.use('/add', c22_add)
     app.use('/data', c22_data)
 
     /* END BOILERPLATE */
