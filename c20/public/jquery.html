@@ -7,6 +7,11 @@
       <title>C19 - C22 - BREAD</title>
       <link defer rel="stylesheet" href="/stylesheets/styles_c22.css" />
       <script defer src="/script/c22/index.js"></script>
+      <script
+         src="https://code.jquery.com/jquery-3.6.1.min.js"
+         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+         crossorigin="anonymous"
+      ></script>
    </head>
    <body>
       <header class="header-title">
@@ -182,7 +187,7 @@
                   Add Data
                </button>
             </a>
-            <button id="clear-data-btn" type="button" class="btn">Clear</button>
+            <button id="clear-data-btn" type="button" class="btn" style="display:none">Clear</button>
          </div>
          <fieldset id="add-field" style="display: none">
             <h2>Add Data</h2>
@@ -275,194 +280,33 @@
       <script>
          const apiURL = window.location.search
          const apiURL2 = document.URL
-         const addDataBtn = document.getElementById('add-data-btn')
 
-         addDataBtn.addEventListener('click', function () {
-            if (document.getElementById('add-field').style.display == 'block') {
-               document.getElementById('add-field').style.display = 'none'
-               document.getElementById('add-submit').style.display = 'none'
-               document.getElementById('add-data-btn').textContent = 'Add Data'
-               document.getElementById('add-data-btn').className = 'btn add-btn'
+         $('#add-data-btn').click(function () {
+            $('#add-field').toggle()
+            $('#add-submit').toggle()
+            $('#clear-data-btn').toggle()
+            $('#add-data-btn').css('text-content', 'Add Data')
+            $('#add-string').focus()
+            if ($('#add-field').is(':visible')) {
+               $('this').attr('class', 'btn add-btn')
             } else {
-               document.getElementById('add-field').style.display = 'block'
-               document.getElementById('add-submit').style.display = 'block'
-               document.getElementById('add-string').focus()
-               document.getElementById('add-data-btn').textContent = 'Cancel'
-               document.getElementById('add-data-btn').className = 'btn'
+               $('this').attr('class', 'btn')
             }
          })
 
-         document
-            .getElementById('clear-data-btn')
-            .addEventListener('click', function () {
-               document.getElementById('add-form').reset()
+         $('clear-data-btn').click(function () {
+               $('#add-form').trigger('reset')
             })
 
          const readData = (query = []) => {
             const [page, params] = query
 
-            return fetch(
-               `http://localhost:3022/data?${new URLSearchParams(
-                  params
-               ).toString()}${page ? `&page=${page}` : ''}`
-            )
-               .then((response) => {
-                  return response.json()
-               })
-               .then((json) => {
-                  let html = ''
-                  json.data.forEach((item, index) => {
-                     html += `<tr>
-                     <th scope="row">${item.ID}</th>
-                     <td>${item.String}</td>
-                     <td>${item.Integer}</td>
-                     <td>${item.Float}</td>
-                     <td>${item.Date}</td>
-                     <td>${item.Boolean}</td>
-                     <td>
-                     <button type="button" class="btn edit-btn" onclick="editData('${item._id}')">Edit</button>
-                     <button type="button" class="btn delete-btn" onclick="deleteData('${item._id}')">Delete</button>
-                     </td>
-                  </tr>`
-                  })
-
-                  if (json.totalData > 3) {
-                     pagination(json.pageCurrent, json.pageTotal, json.passParams)
-                  }
-                  document.getElementById('table-body').innerHTML = html
-               })
-         }
-
-         readData()
-
-         const pagination = (page, pageTotal, params) => {
-            const searchParams = JSON.stringify(params)
-            let paging = ''
-
-            for (let i = 1; i <= pageTotal; i++) {
-               paging += `<button class="btn page-btn${
-                  i == page ? ' active' : ''
-               }" onclick='readData([${i}, ${params ? searchParams: {}}])'>${i}</button>`
-            }
-
-            document.getElementById('pagination').innerHTML = paging
-         }
-
-         const saveData = (id, ID, String, Integer, Float, Date, Boolean) => {
-            if (id) {
-               return fetch(`http://localhost:3022/data/${id}`, {
-                  method: 'PUT',
-                  headers: {
-                     Accept: 'application/json',
-                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                     ID,
-                     String,
-                     Integer,
-                     Float,
-                     Date,
-                     Boolean,
-                  }),
-               })
-                  .then((response) => {
-                     return response.json()
-                  })
-                  .then((response) => {
-                     document.getElementById('add-form').reset()
-                  })
-            } else {
-               return fetch(`http://localhost:3022/data`, {
-                  method: 'POST',
-                  headers: {
-                     Accept: 'application/json',
-                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                     ID,
-                     String,
-                     Integer,
-                     Float,
-                     Date,
-                     Boolean,
-                  }),
-               })
-                  .then((response) => {
-                     return response.json()
-                  })
-                  .then((response) => {
-                     readData()
-                     document.getElementById('add-form').reset()
-                  })
-            }
-         }
-
-         const editData = (id) => {
-            return fetch(`http://localhost:3022/data/${id}`, {
+            $.ajax({
                method: 'GET',
-               headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-               },
+               url: `http://localhost:3022/data?${page ? `&page=${page}` : ''}`,
+               data: params,
             })
-               .then((response) => {
-                  return response.json()
-               })
-               .then((response) => {
-                  document.getElementById('add-_id').value = response._id
-                  document.getElementById('add-id').value = response.ID
-                  document.getElementById('add-string').value = response.String
-                  document.getElementById('add-integer').value =
-                     response.Integer
-                  document.getElementById('add-float').value = response.Float
-                  document.getElementById('add-date').value = response.Date
-                  document.getElementById('add-boolean').value =
-                     response.Boolean
-                  if (
-                     document.getElementById('add-field').style.display ==
-                     'none'
-                  ) {
-                     addDataBtn.click()
-                  }
-               })
-         }
-
-         const deleteData = (id) => {
-            return fetch(`http://localhost:3022/data/${id}`, {
-               method: 'DELETE',
-               headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-               },
-            })
-               .then((response) => {
-                  return response.json()
-               })
-               .then((response) => {
-                  readData()
-               })
-         }
-
-         const findData = () => {
-            return fetch(`http://localhost:3022/data`, {
-               method: 'PUT',
-               headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-               },
-               body: JSON.stringify({
-                  ID,
-                  String,
-                  Integer,
-                  Float,
-                  Date,
-                  Boolean,
-               }),
-            })
-               .then((response) => {
-                  return response.json()
-               })
-               .then((response) => {
+               .done(function (response) {
                   let html = ''
                   response.data.forEach((item, index) => {
                      html += `<tr>
@@ -473,41 +317,149 @@
                      <td>${item.Date}</td>
                      <td>${item.Boolean}</td>
                      <td>
-                     <button type="button" class="btn edit-btn" onclick="editData('${item._id}')">Edit</button>
+                     <button type="button" class="btn edit-btn" data-id="${item._id}">Edit</button>
                      <button type="button" class="btn delete-btn" onclick="deleteData('${item._id}')">Delete</button>
                      </td>
                   </tr>`
                   })
 
-                  document.getElementById('table-body').innerHTML = html
+                  if (response.totalData > 3) {
+                     pagination(
+                        response.pageCurrent,
+                        response.pageTotal,
+                        response.passParams
+                     )
+                  }
+
+                  $('#table-body').html(html)
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
                })
          }
 
-         document
-            .getElementById('add-form')
-            .addEventListener('submit', function (event) {
+         const pagination = (page, pageTotal, params) => {
+            const searchParams = JSON.stringify(params)
+            console.log(typeof params);
+            console.log(typeof searchParams);
+            let paging = ''
+
+            for (let i = 1; i <= pageTotal; i++) {
+               paging += `<button id="${
+                  i == page ? 'page-active' : `page-${i}`
+               }"" class="btn page-btn${
+                  i == page ? ' active' : ''
+               }" onclick='readData([${i}, ${params ? searchParams: {}}])'>${i}</button>`
+            }
+
+            $('#pagination').html(paging)
+         }
+
+         const saveData = (_id, ID, String, Integer, Float, Date, Boolean) => {
+            if (_id) {
+               $.ajax({
+                  method: 'PUT',
+                  url: `http://localhost:3022/data/${id}`,
+                  dataType: 'json',
+                  data: {
+                     ID,
+                     String,
+                     Integer,
+                     Float,
+                     Date,
+                     Boolean,
+                  },
+               })
+                  .done(function (response) {
+                     $('#add-form').trigger('reset')
+                  })
+                  .fail(function (err) {
+                     alert('gagal pake jquery')
+                  })
+            } else {
+               $.ajax({
+                  method: 'POST',
+                  url: `http://localhost:3022/data/`,
+                  dataType: 'json',
+                  data: {
+                     ID,
+                     String,
+                     Integer,
+                     Float,
+                     Date,
+                     Boolean,
+                  },
+               })
+                  .done(function (response) {
+                     $('#add-form').trigger('reset')
+                  })
+                  .fail(function (err) {
+                     alert('gagal pake jquery')
+                  })
+            }
+         }
+
+         const editData = (id) => {
+            $.ajax({
+               method: 'GET',
+               url: `http://localhost:3022/data/${id}`,
+               dataType: 'json',
+            })
+               .done(function (response) {
+                  $('#add-_id').val(response._id)
+                  $('#add-id').val(response.ID)
+                  $('#add-string').val(response.String)
+                  $('#add-integer').val(response.Integer)
+                  $('#add-float').val(response.Float)
+                  $('#add-date').val(response.Date)
+                  $('#add-boolean').val(response.Boolean)
+                  if ($('#add-field').css('display', 'none')) {
+                     $('#add-data-btn').trigger('click')
+                  }
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
+               })
+         }
+
+         const deleteData = (id) => {
+            $.ajax({
+               method: 'DELETE',
+               url: `http://localhost:3022/data/${id}`,
+               dataType: 'json',
+            })
+               .done(function (response) {
+                  $('#page-active').trigger('click')
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
+               })
+         }
+
+         $(document).ready(function () {
+            readData()
+
+            $('#add-form').submit(function (event) {
                event.preventDefault()
-               const id = document.getElementById('add-_id').value
-               const ID = document.getElementById('add-id').value
-               const String = document.getElementById('add-string').value
-               const Integer = document.getElementById('add-integer').value
-               const Float = document.getElementById('add-float').value
-               const Date = document.getElementById('add-date').value
-               const Boolean = document.getElementById('add-boolean').value
-               saveData(id, ID, String, Integer, Float, Date, Boolean)
+               const _id = $('#add-_id').val()
+               const ID = $('#add-id').val()
+               const String = $('#add-string').val()
+               const Integer = $('#add-integer').val()
+               const Float = $('#add-float').val()
+               const Date = $('#add-date').val()
+               const Boolean = $('#add-boolean').val()
+               saveData(_id, ID, String, Integer, Float, Date, Boolean)
             })
 
-         document
-            .getElementById('search-form')
-            .addEventListener('submit', function (event) {
+            $('#search-form').submit(function (event) {
                event.preventDefault()
 
-               const ID = document.getElementById('search-id').value
-               const String = document.getElementById('search-string').value
-               const Integer = document.getElementById('search-integer').value
-               const Float = document.getElementById('search-float').value
-               const Date = document.getElementById('search-date').value
-               const Boolean = document.getElementById('search-boolean').value
+               const ID = $('#search-id').val()
+               const String = $('#search-string').val()
+               const Integer = $('#search-integer').val()
+               const Float = $('#search-float').val()
+               const Date = $('#search-date').val()
+               const Boolean = $('#search-boolean').val()
                const container = {
                   ID,
                   String,
@@ -517,17 +469,20 @@
                   Boolean,
                }
 
-               document.getElementById('pagination').innerHTML = ''
+               $('#pagination').html = ''
                readData([1, container])
             })
 
-         function testData(query = []) {
-            const [page, params] = query
-            console.log(query)
-            console.log(typeof page)
-            console.log(typeof params)
-         }
+            $('#table-body').on('click', '.edit-btn', function () {
+               const _id = $(this).attr('data-id')
+               editData(_id)
+            })
 
+            $('#table-body').on('click', '.delete-btn', function () {
+               const _id = $(this).attr('data-id')
+               deleteData(_id)
+            })
+         })
       </script>
    </body>
 </html>
