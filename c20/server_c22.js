@@ -52,8 +52,6 @@ main()
 
     /* ALL ROUTE - C22*/
     const c22_index = require('./routes/c22/index')(db)
-    // const c22_edit = require('./routes/c22/edit')(db)
-    const c22_add = require('./routes/c22/add')(db)
     const c22_data = require('./routes/c22/data')(db)
 
     app.use('/', c22_index)
