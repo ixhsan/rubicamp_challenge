@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>C19 - C22 - BREAD</title>
+      <link defer rel="stylesheet" href="/stylesheets/styles_c22.css" />
+      <script defer src="/script/c22/index.js"></script>
+      <script
+         src="https://code.jquery.com/jquery-3.6.1.min.js"
+         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+         crossorigin="anonymous"
+      ></script>
+   </head>
+   <body>
+      <header class="header-title">
+         <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+      </header>
+      <section id="search-section">
+         <fieldset>
+            <h2 style="text-align: center">Filters</h2>
+            <form action="" method="GET" class="user-form" id="search-form">
+               <div class="user-input">
+                  <input type="checkbox" id="enable-id" checked />
+                  <label for="enable-id" enable-id="" class="input-label"
+                     >ID</label
+                  >
+                  <input
+                     type="text"
+                     name="id"
+                     id="search-id"
+                     enable-id=""
+                     placeholder="ID"
+                     class="input"
+                     pattern="^\d+$"
+                     required
+                  />
+               </div>
+               <div class="user-input">
+                  <input type="checkbox" id="enable-string" checked />
+                  <label
+                     for="enable-string"
+                     enable-string=""
+                     class="input-label"
+                  >
+                     String</label
+                  >
+                  <input
+                     type="text"
+                     name="string"
+                     id="search-string"
+                     enable-string=""
+                     placeholder="String"
+                     class="input"
+                     required
+                  />
+               </div>
+               <div class="user-input">
+                  <input type="checkbox" id="enable-integer" checked />
+                  <label
+                     for="enable-integer"
+                     enable-integer=""
+                     class="input-label"
+                  >
+                     Integer</label
+                  >
+                  <input
+                     type="number"
+                     name="integer"
+                     id="search-integer"
+                     enable-integer=""
+                     placeholder="Integer"
+                     class="input"
+                     pattern=""
+                     required
+                  />
+               </div>
+               <div class="user-input">
+                  <input type="checkbox" id="enable-float" checked />
+                  <label for="enable-float" enable-float="" class="input-label">
+                     Float</label
+                  >
+                  <input
+                     type="number"
+                     name="float"
+                     id="search-float"
+                     enable-float=""
+                     placeholder="Float"
+                     step="any"
+                     class="input"
+                     pattern="^\d+$"
+                     required
+                  />
+               </div>
+               <div class="search-input date-form">
+                  <input type="checkbox" id="enable-date" checked />
+                  <label for="enable-date" enable-date="" class="date-label">
+                     Date</label
+                  >
+                  <div class="search-date" enable-date="">
+                     <input
+                        type="text"
+                        name="date"
+                        id="search-date"
+                        enable-date=""
+                        class="input date"
+                        placeholder="start date"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
+                        required
+                     />
+                     <p>to</p>
+                     <input
+                        type="text"
+                        name="date2"
+                        id="search-date2"
+                        enable-date=""
+                        class="input date"
+                        placeholder="end-date"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
+                        disabled
+                     />
+                  </div>
+               </div>
+               <div class="user-input">
+                  <input type="checkbox" id="enable-boolean" checked />
+                  <label
+                     for="enable-boolean"
+                     enable-boolean=""
+                     class="input-label"
+                  >
+                     Boolean</label
+                  >
+                  <input
+                     type="number"
+                     name="boolean"
+                     id="search-boolean"
+                     enable-boolean=""
+                     min="0"
+                     max="1"
+                     placeholder="Choose the boolean ..."
+                     class="input"
+                     required
+                  />
+               </div>
+               <button
+                  type="submit"
+                  id="search-button"
+                  class="btn search-btn"
+                  disabled
+               >
+                  Search
+               </button>
+            </form>
+         </fieldset>
+      </section>
+      <main>
+         <section class="content-section">
+            <fieldset>
+               <h2 style="text-align: center">Data Table</h2>
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">String</th>
+                        <th scope="col">Integer</th>
+                        <th scope="col">Float</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Boolean</th>
+                        <th scope="col">Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody id="table-body"></tbody>
+               </table>
+            </fieldset>
+            <div id="navigation">
+               <ul id="pagination"></ul>
+            </div>
+         </section>
+      </main>
+      <section id="add-section">
+         <div class="add-btn-section">
+            <a style="color: white" href="#add-form">
+               <button id="add-data-btn" type="button" class="btn add-btn">
+                  Add Data
+               </button>
+            </a>
+            <button id="clear-data-btn" type="button" class="btn" style="display:none">Clear</button>
+         </div>
+         <fieldset id="add-field" style="display: none">
+            <h2>Add Data</h2>
+            <form action="/data" method="POST" class="user-form" id="add-form">
+               <input
+                  type="text"
+                  name="_id"
+                  id="add-_id"
+                  style="display: none"
+               />
+               <div class="user-input">
+                  <label for="add-id" class="input-label"> ID</label>
+                  <input
+                     id="add-id"
+                     name="id"
+                     class="input"
+                     value=""
+                     type="text"
+                     placeholder="ID"
+                  />
+               </div>
+               <div class="user-input">
+                  <label for="add-string" class="input-label"> String</label>
+                  <input
+                     type="text"
+                     name="string"
+                     id="add-string"
+                     placeholder="String"
+                     class="input"
+                  />
+               </div>
+               <div class="user-input">
+                  <label for="add-integer" class="input-label"> Integer</label>
+                  <input
+                     type="number"
+                     name="integer"
+                     id="add-integer"
+                     placeholder="Integer"
+                     class="input"
+                     pattern=""
+                  />
+               </div>
+               <div class="user-input">
+                  <label for="add-float" class="input-label"> Float</label>
+                  <input
+                     type="number"
+                     name="float"
+                     id="add-float"
+                     placeholder="Float"
+                     step="0.0001"
+                     class="input"
+                     pattern="^\d+$"
+                  />
+               </div>
+               <div class="user-input date-form">
+                  <label for="add-date" class="input-label"> Date</label>
+                  <input
+                     type="text"
+                     name="date"
+                     id="add-date"
+                     class="input"
+                     placeholder="start date"
+                     onfocus="(this.type='date')"
+                     onblur="(this.type='text')"
+                  />
+               </div>
+               <div class="user-input">
+                  <label for="add-boolean" class="input-label"> Boolean</label>
+                  <input
+                     type="number"
+                     name="boolean"
+                     id="add-boolean"
+                     min="0"
+                     max="1"
+                     placeholder="Choose the boolean ..."
+                     class="input"
+                  />
+               </div>
+               <button
+                  type="submit"
+                  id="add-submit"
+                  class="btn add-btn"
+                  style="display: none"
+               >
+                  Add
+               </button>
+            </form>
+         </fieldset>
+      </section>
+      <script>
+         const apiURL = window.location.search
+         const apiURL2 = document.URL
+
+         $('#add-data-btn').click(function () {
+            $('#add-field').toggle()
+            $('#add-submit').toggle()
+            $('#clear-data-btn').toggle()
+            $('#add-data-btn').css('text-content', 'Add Data')
+            $('#add-string').focus()
+            if ($('#add-field').is(':visible')) {
+               $('this').attr('class', 'btn add-btn')
+            } else {
+               $('this').attr('class', 'btn')
+            }
+         })
+
+         $('clear-data-btn').click(function () {
+               $('#add-form').trigger('reset')
+            })
+
+         const readData = (query = []) => {
+            const [page, params] = query
+
+            $.ajax({
+               method: 'GET',
+               url: `http://localhost:3022/data?${page ? `&page=${page}` : ''}`,
+               data: params,
+            })
+               .done(function (response) {
+                  let html = ''
+                  response.data.forEach((item, index) => {
+                     html += `<tr>
+                     <th scope="row">${item.ID}</th>
+                     <td>${item.String}</td>
+                     <td>${item.Integer}</td>
+                     <td>${item.Float}</td>
+                     <td>${item.Date}</td>
+                     <td>${item.Boolean}</td>
+                     <td>
+                     <button type="button" class="btn edit-btn" data-id="${item._id}">Edit</button>
+                     <button type="button" class="btn delete-btn" onclick="deleteData('${item._id}')">Delete</button>
+                     </td>
+                  </tr>`
+                  })
+
+                  if (response.totalData > 3) {
+                     pagination(
+                        response.pageCurrent,
+                        response.pageTotal,
+                        response.passParams
+                     )
+                  }
+
+                  $('#table-body').html(html)
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
+               })
+         }
+
+         const pagination = (page, pageTotal, params) => {
+            const searchParams = JSON.stringify(params)
+            console.log(typeof params);
+            console.log(typeof searchParams);
+            let paging = ''
+
+            for (let i = 1; i <= pageTotal; i++) {
+               paging += `<button id="${
+                  i == page ? 'page-active' : `page-${i}`
+               }"" class="btn page-btn${
+                  i == page ? ' active' : ''
+               }" onclick='readData([${i}, ${params ? searchParams: {}}])'>${i}</button>`
+            }
+
+            $('#pagination').html(paging)
+         }
+
+         const saveData = (_id, ID, String, Integer, Float, Date, Boolean) => {
+            if (_id) {
+               $.ajax({
+                  method: 'PUT',
+                  url: `http://localhost:3022/data/${id}`,
+                  dataType: 'json',
+                  data: {
+                     ID,
+                     String,
+                     Integer,
+                     Float,
+                     Date,
+                     Boolean,
+                  },
+               })
+                  .done(function (response) {
+                     $('#add-form').trigger('reset')
+                  })
+                  .fail(function (err) {
+                     alert('gagal pake jquery')
+                  })
+            } else {
+               $.ajax({
+                  method: 'POST',
+                  url: `http://localhost:3022/data/`,
+                  dataType: 'json',
+                  data: {
+                     ID,
+                     String,
+                     Integer,
+                     Float,
+                     Date,
+                     Boolean,
+                  },
+               })
+                  .done(function (response) {
+                     $('#add-form').trigger('reset')
+                  })
+                  .fail(function (err) {
+                     alert('gagal pake jquery')
+                  })
+            }
+         }
+
+         const editData = (id) => {
+            $.ajax({
+               method: 'GET',
+               url: `http://localhost:3022/data/${id}`,
+               dataType: 'json',
+            })
+               .done(function (response) {
+                  $('#add-_id').val(response._id)
+                  $('#add-id').val(response.ID)
+                  $('#add-string').val(response.String)
+                  $('#add-integer').val(response.Integer)
+                  $('#add-float').val(response.Float)
+                  $('#add-date').val(response.Date)
+                  $('#add-boolean').val(response.Boolean)
+                  if ($('#add-field').css('display', 'none')) {
+                     $('#add-data-btn').trigger('click')
+                  }
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
+               })
+         }
+
+         const deleteData = (id) => {
+            $.ajax({
+               method: 'DELETE',
+               url: `http://localhost:3022/data/${id}`,
+               dataType: 'json',
+            })
+               .done(function (response) {
+                  $('#page-active').trigger('click')
+               })
+               .fail(function (err) {
+                  alert('gagal pake jquery')
+               })
+         }
+
+         $(document).ready(function () {
+            readData()
+
+            $('#add-form').submit(function (event) {
+               event.preventDefault()
+               const _id = $('#add-_id').val()
+               const ID = $('#add-id').val()
+               const String = $('#add-string').val()
+               const Integer = $('#add-integer').val()
+               const Float = $('#add-float').val()
+               const Date = $('#add-date').val()
+               const Boolean = $('#add-boolean').val()
+               saveData(_id, ID, String, Integer, Float, Date, Boolean)
+            })
+
+            $('#search-form').submit(function (event) {
+               event.preventDefault()
+
+               const ID = $('#search-id').val()
+               const String = $('#search-string').val()
+               const Integer = $('#search-integer').val()
+               const Float = $('#search-float').val()
+               const Date = $('#search-date').val()
+               const Boolean = $('#search-boolean').val()
+               const container = {
+                  ID,
+                  String,
+                  Integer,
+                  Float,
+                  Date,
+                  Boolean,
+               }
+
+               $('#pagination').html = ''
+               readData([1, container])
+            })
+
+            $('#table-body').on('click', '.edit-btn', function () {
+               const _id = $(this).attr('data-id')
+               editData(_id)
+            })
+
+            $('#table-body').on('click', '.delete-btn', function () {
+               const _id = $(this).attr('data-id')
+               deleteData(_id)
+            })
+         })
+      </script>
+   </body>
+</html>

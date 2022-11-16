@@ -31,7 +31,7 @@ async function main() {
     return db
 
   } catch (err) {
-    throw 'gagal bro'
+    throw 'gagal coy'
   }
 }
 
@@ -47,7 +47,8 @@ main()
     app.set('views', filePath) // specify the views
     // app.use(express.urlencoded({ extended: false }))
     // app.use(express.json())
-    app.use(express.static('./'))
+    // app.use(express.static('./'))
+    app.use(express.static(path.join(__dirname, 'public')));
 
     /* ALL ROUTE - C22*/
     const c22_index = require('./routes/c22/index')(db)

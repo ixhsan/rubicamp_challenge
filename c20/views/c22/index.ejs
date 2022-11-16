@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link defer rel="stylesheet" href="/views/styles_c22.css" />
+    <link defer rel="stylesheet" href="/stylesheets/styles_c22.css" />
     <script defer src="/script/c22/index.js"></script>
   </head>
   <body>
     <header class="header-title">
-        <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
+      <h1 class="header-title">BREAD(Browse, Read, Edit, Add, Delete)</h1>
     </header>
     <section id="search-section">
       <fieldset>
-        <h2 style="text-align: center;">Filters</h2>
+        <h2 style="text-align: center">Filters</h2>
         <form action="" method="GET" class="user-form">
           <div class="user-input">
             <input type="checkbox" id="enable-id" checked />
@@ -140,7 +140,7 @@
     <main>
       <section class="content-section">
         <fieldset>
-          <h2 style="text-align: center;">Data Table</h2>
+          <h2 style="text-align: center">Data Table</h2>
           <table class="table">
             <thead>
               <tr>
@@ -156,6 +156,9 @@
             <tbody id="table-body"></tbody>
           </table>
         </fieldset>
+        <div id="navigation">
+          <ul id="pagination"></ul>
+        </div>
       </section>
     </main>
     <section id="add-section">
@@ -165,9 +168,14 @@
             Add Data
           </button>
         </a>
+        <button id="clear-data-btn" type="button" class="btn">
+          Clear
+        </button>
       </div>
       <fieldset id="add-field" style="display: none">
+        <h2>Add Data</h2>
         <form action="/data" method="POST" class="user-form" id="add-form">
+          <input type="text" name="_id" id="add-_id" style="display: none;"/>
           <div class="user-input">
             <label for="add-id" class="input-label"> ID</label>
             <input
@@ -255,24 +263,27 @@
           document.getElementById('add-field').style.display = 'none'
           document.getElementById('add-submit').style.display = 'none'
           document.getElementById('add-data-btn').textContent = 'Add Data'
-          document.getElementById('add-data-btn').style.color = '#fff'
           document.getElementById('add-data-btn').className = 'btn add-btn'
         } else {
           document.getElementById('add-field').style.display = 'block'
           document.getElementById('add-submit').style.display = 'block'
           document.getElementById('add-string').focus()
           document.getElementById('add-data-btn').textContent = 'Cancel'
-          document.getElementById('add-data-btn').style.color = '#000'
           document.getElementById('add-data-btn').className = 'btn'
         }
       })
 
+      document.getElementById('clear-data-btn').addEventListener('click', function () {
+        document.getElementById('add-form').reset()
+      })
+
       const readData = () => {
-        return fetch('http://localhost:3022/data/all')
+        return fetch('http://localhost:3022/data/')
           .then((response) => response.json())
           .then((json) => {
             let html = ''
-            json.forEach((item, index) => {
+            let page = ''
+            json.data.forEach((item, index) => {
               html += `<tr>
                 <th scope="row">${item.ID}</th>
                 <td>${item.String}</td>
@@ -286,35 +297,73 @@
                 </td>
               </tr>`
             })
+
+            if (json.data.length) {
+              // page += `<p>data lebih dari 3</p>
+                for (let i = 1; i <= json.pageTotal; i++) {
+                  page += `
+                  <li class="page-item num${i == json.page ? ' active' : ''}">
+                    <a class="${i == json.page ? 'active' : ''}" href="/?page=${i}" class="page-link">${i}</a>
+                  </li>`
+              }
+            }
+            // console.log(page);
+            document.getElementById('pagination').innerHTML = page
             document.getElementById('table-body').innerHTML = html
+            
           })
       }
 
       readData()
 
-      const createData = (ID, String, Integer, Float, Date, Boolean) => {
-        return fetch(`http://localhost:3022/data`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ID,
-            String,
-            Integer,
-            Float,
-            Date,
-            Boolean,
-          }),
-        })
-          .then((response) => {
-            return response.json()
+      const saveData = (id, ID, String, Integer, Float, Date, Boolean) => {
+        if (id) {
+          return fetch(`http://localhost:3022/data/${id}`, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ID,
+              String,
+              Integer,
+              Float,
+              Date,
+              Boolean,
+            }),
           })
-          .then((response) => {
-            readData()
-            document.getElementById('add-form').reset()
+            .then((response) => {
+              return response.json()
+            })
+            .then((response) => {
+              readData()
+              document.getElementById('add-form').reset()
+            })
+        } else {
+          return fetch(`http://localhost:3022/data`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ID,
+              String,
+              Integer,
+              Float,
+              Date,
+              Boolean,
+            }),
           })
+            .then((response) => {
+              return response.json()
+            })
+            .then((response) => {
+              readData()
+              document.getElementById('add-form').reset()
+            })
+        }
       }
 
       const editData = (id) => {
@@ -330,12 +379,14 @@
           })
           .then((response) => {
             readData()
+            document.getElementById('add-_id').value = response._id
             document.getElementById('add-id').value = response.ID
             document.getElementById('add-string').value = response.String
             document.getElementById('add-integer').value = response.Integer
             document.getElementById('add-float').value = response.Float
             document.getElementById('add-date').value = response.Date
             document.getElementById('add-boolean').value = response.Boolean
+            console.log(document.getElementById('add-_id').value || 'empty')
             if (document.getElementById('add-field').style.display == 'none') {
               addDataBtn.click()
             }
@@ -362,13 +413,14 @@
         .getElementById('add-form')
         .addEventListener('submit', function (event) {
           event.preventDefault()
+          const id = document.getElementById('add-_id').value
           const ID = document.getElementById('add-id').value
           const String = document.getElementById('add-string').value
           const Integer = document.getElementById('add-integer').value
           const Float = document.getElementById('add-float').value
           const Date = document.getElementById('add-date').value
           const Boolean = document.getElementById('add-boolean').value
-          createData(ID, String, Integer, Float, Date, Boolean)
+          saveData(id, ID, String, Integer, Float, Date, Boolean)
         })
     </script>
   </body>

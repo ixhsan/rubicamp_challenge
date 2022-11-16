@@ -99,7 +99,7 @@ h2 {
   border-radius: 5px;
   border-style: none;
   font-size: 1em;
-  color: #fff;
+  color: #000;
 }
 
 .btn:hover,
@@ -108,6 +108,7 @@ h2 {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
+  color: white;
 }
 
 .btn:disabled {
@@ -120,12 +121,14 @@ h2 {
 
 .edit-btn {
   background-color: #00b100;
+  color: #fff;
   width: 60px;
 }
 
 /* .delete-btn  */
 button.delete-btn {
   background-color: #df1e00;
+  color: #fff;
 }
 
 .add-btn {
@@ -172,16 +175,13 @@ button.delete-btn {
   color: white;
 }
 
-.pagination .active {
-  text-decoration: none;
-  background-color: #1e90ff;
-  color: #fff;
-}
-
 fieldset {
   max-width: 800px;
   margin: 10px 0px;
-  /* border: solid; */
+}
+
+#add-field {
+  max-height: 300px;
 }
 
 .add-btn-section {
@@ -190,4 +190,15 @@ fieldset {
   padding: 5px;
   max-width: 400px;
   max-height: 50px;
+}
+
+.page-btn {
+  width: auto;
+  height: auto;
+}
+
+.page-btn .active {
+  background-color: #1e90ff;
+  color: #fff;
+  border: solid;
 }
